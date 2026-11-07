@@ -1,0 +1,4 @@
+Source: C:\Users\CAI BIN\Downloads\实验报告模板.doc
+Backup: C:\Users\CAI BIN\Desktop\photo_analysis\output\template_audit\实验报告模板_原始备份.doc
+SHA256: 1C550BABA970EC5E25CF625F777AEDAD6993B56F34EF72E4BE4BD53EC2EC68C0
+Read-only inspection only; source file was not opened for writing.

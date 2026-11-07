@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<title>最终代码与结果核验</title><style>
+* { box-sizing: border-box; }
+html, body { margin:0; background:white; }
+body { font-family:"Microsoft YaHei",sans-serif; color:#1f2730; }
+.card { width:1200px; border:1px solid #bac4ce; background:white; }
+.head { display:flex; justify-content:space-between; padding:15px 24px;
+        border-bottom:1px solid #d6dde4; background:#f2f5f8; }
+.title { font-size:24px; font-weight:600; }
+.meta { font-size:20px; color:#4b5e70; }
+.exchange { padding:13px 24px 0; }
+.label { color:#38546b; font-size:20px; font-weight:600; margin:0 0 3px; }
+p { font-size:24px; line-height:1.43; margin:0 0 9px; text-align:justify; }
+code { font-family:Consolas,monospace; font-size:23px; }
+.foot { padding:10px 24px 13px; color:#66717b; font-size:18px; }
+</style>
+<article class="card">
+<div class="head"><span class="title">03　最终代码与结果核验</span>
+<span class="meta">AI 问答摘录 · 第 4 轮</span></div>
+<div class="exchange"><div class="label">提问</div><p>最终统计为104组常规+385组边界+1000组随机+2默认全isequal，误差0； […] ①推导与代码是否相符，包括连续L/2和离散(len-1)/2； […] ④图方向和图题是否一致。</p>
+<div class="label">AI · Luna</div><p>连续模型的 L/2 与离散半长 (ell−1)/2 已区分；推导、最终代码和日志在半核网格、端点权重、镜像及归一化上吻合。初版参数化错误及修正后尺寸相同但逐元素不同的解释准确，未将尺寸相同说成支持集相同。图中 0° 水平、45° 左下至右上、90° 竖直，方向与题注一致，测试统计也与日志相符。</p></div>
+<div class="foot">实际问答摘录 · 核验依据为最终函数、MATLAB 日志与核函数图</div></article></html>

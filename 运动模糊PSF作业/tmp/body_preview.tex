@@ -1,0 +1,140 @@
+\documentclass[UTF8,12pt,a4paper]{ctexart}
+\usepackage[top=2.1cm,bottom=2.1cm,left=2.25cm,right=2.25cm]{geometry}
+\usepackage{amsmath,amssymb,graphicx,booktabs,listings,xcolor,hyperref,fancyhdr,setspace,float,caption}
+\hypersetup{hidelinks,pdftitle={运动模糊点扩散函数的离散实现},pdfauthor={蔡斌}}
+\setstretch{1.12}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{2pt}
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{图像处理课程作业}\fancyhead[R]{运动模糊 PSF}
+\fancyfoot[C]{\thepage}
+\ctexset{section={format=\large\bfseries,beforeskip=14pt,afterskip=7pt},
+subsection={format=\normalsize\bfseries,beforeskip=10pt,afterskip=5pt}}
+\captionsetup{font=small,skip=5pt}
+\renewcommand{\arraystretch}{1.18}
+\lstdefinestyle{matlab}{language=Matlab,basicstyle=\ttfamily\fontsize{9}{10.5}\selectfont,
+keywordstyle=\bfseries,commentstyle=\color{black!60},numbers=left,
+numberstyle=\tiny\color{black!50},numbersep=7pt,frame=single,rulecolor=\color{black!25},
+breaklines=true,showstringspaces=false,tabsize=4,columns=fullflexible,keepspaces=true,
+xleftmargin=1.2em,framexleftmargin=0.4em,aboveskip=8pt,belowskip=6pt}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries 运动模糊点扩散函数的离散实现}\par\vspace{9pt}
+蔡斌\quad 数学jd2401\quad 1024001338\par\vspace{3pt}
+2026 年 11 月 5 日
+\end{center}
+
+\section{连续模型与离散规则}
+匀速直线运动由轨迹长度和方向确定。本次作业实现函数
+\texttt{motion\_psf(LEN,THETA)}，并与 MATLAB R2023b 的
+\texttt{fspecial('motion',LEN,THETA)} 对照。\texttt{LEN} 的单位为像素，
+\texttt{THETA} 从水平正方向逆时针起算，单位为度\cite{doc}。
+
+\subsection{连续运动核}
+设轨迹总长为 $L>0$，方向角为 $\theta$，运动中点位于原点。
+曝光过程中各位置的贡献相同，连续 PSF 为
+\begin{equation}
+ h_c(x,y)=\frac{1}{L}\int_{-L/2}^{L/2}
+ \delta(x-t\cos\theta)\,\delta(y-t\sin\theta)\,\mathrm dt.
+\end{equation}
+核的质量集中在运动线段上，且总积分为 1。离散计算还需确定像素中心、核的尺寸及端点权重。
+
+\subsection{MATLAB 的离散构造}
+本次以本机 R2023b 中 \texttt{fspecial} 的 \texttt{motion} 分支为离散规则参照\cite{local}。
+按该实现，先把长度截到至少 1，并采用如下半长与角度：
+\begin{equation}
+ \ell=\max(1,\mathrm{LEN}),\qquad a=\frac{\ell-1}{2},\qquad
+ \phi=\frac{\operatorname{mod}(\mathrm{THETA},180)}{180}\pi.
+\end{equation}
+其中 $a$ 表示离散线段的半端点间距；连续积分中的 $L/2$ 表示轨迹半长。
+整数长度的水平核包含 \texttt{LEN} 个像素中心，其首末中心的间距为 $\mathrm{LEN}-1$。
+
+记 $c=\cos\phi$、$s=\sin\phi$、$\sigma=\operatorname{sign}(c)$，
+$\varepsilon=\texttt{eps}$。半核网格的边界为
+\begin{equation}
+ b_x=\operatorname{fix}(ac+\sigma-\ell\varepsilon),\qquad
+ b_y=\operatorname{fix}(as+1-\ell\varepsilon),
+\end{equation}
+其中 \texttt{fix} 向零取整，横坐标取 \texttt{0:}$\sigma$\texttt{:}$b_x$，
+纵坐标取 \texttt{0:}$b_y$。由角度决定网格后，水平核与竖直核分别退化为行向量和列向量。
+
+对网格点 $(x,y)$，先计算有符号垂距 $u=yc-xs$。
+当 $\sqrt{x^2+y^2}\ge a$ 且 $|u|\le1$ 时，用
+$\sqrt{u^2+\{a-|(x+us)/c|\}^2}$ 替换 $u$，计入端点距离。
+再以 $w=\max(1+\varepsilon-|u|,0)$ 得到半核权重，镜像展开为 $W$，并计算
+\begin{equation}
+ h=\frac{W}{\sum_{i,j}W_{ij}+\varepsilon\ell^2}.
+\end{equation}
+最后按矩阵行方向调整上下顺序。边界取整、端点计算次序和浮点修正项均保留在第 3 节函数中。
+
+\clearpage
+\section{AI 初版与修改分析}
+直接要求 AI 根据长度和角度编写 PSF 后，得到以下按像素方格内轨迹长度积分的实现。
+该函数保留为 \texttt{motion\_psf\_ai.m}，用于与最终函数对照。
+\lstinputlisting[style=matlab]{motion_psf_ai.m}
+
+\input{results/initial_comparison.tex}
+
+\clearpage
+\section{最终函数}
+根据第 1 节的离散规则，将方形网格改为角度相关的半核网格，并统一端点修正、镜像和归一化步骤。
+函数不调用 \texttt{fspecial}；该内置函数只在测试脚本中充当参照。
+默认参数为 \texttt{LEN=9}、\texttt{THETA=0}。
+\lstinputlisting[style=matlab]{motion_psf.m}
+
+\clearpage
+\section{结果验证}
+在 MATLAB R2023b（23.2.0.2365128）中，先比较输出尺寸，再用
+\texttt{isequal} 检查逐元素一致性；对同尺寸矩阵另记录
+$\max_{i,j}|h_{ij}-h^{\mathrm{ref}}_{ij}|$。测试分为三组：
+\begin{enumerate}
+\setlength{\itemsep}{1pt}
+\item 常规组合：长度 $[0.25,1,1.25,2.5,5,9,13.7,20]$，角度
+$[-180,-90,-45,0,30,45,89.5,90,135,180,225,270,360]^\circ$，共 104 组。
+\item 边界组合：11 个长度与 35 个角度，共 385 组。
+长度覆盖 $\varepsilon$、1 与 9 的邻域及 100；角度覆盖
+$-180^\circ$ 至 $360^\circ$ 间各 $90^\circ$ 倍数及其左右邻域。
+\item 随机参数：1000 组，长度在 $[0.05,100.05)$、角度在
+$[-720,720)$ 内均匀抽取。随机数生成器为 \texttt{twister}，种子为 20261105。
+\end{enumerate}
+另检查无参数调用和省略角度的调用。实测结果见表~\ref{tab:checks}。
+\begin{table}[H]\centering
+\caption{最终函数与 \texttt{fspecial} 的对照结果}\label{tab:checks}
+\begin{tabular}{lrr}
+\toprule
+测试范围 & 逐元素一致 & 最大绝对误差\\
+\midrule
+常规参数组合 & 104/104 & 0\\
+边界参数组合 & 385/385 & 0\\
+随机参数组合 & 1000/1000 & 0\\
+默认参数调用 & 2/2 & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+边界与随机测试的 1385 个输出均为有限非负系数，满足中心对称；
+系数和与 1 的最大偏差为 $2.243\times10^{-14}$。
+归一化中保留的浮点修正项与内置实现一致。
+
+\begin{figure}[H]\centering
+\includegraphics[width=\textwidth]{截图/psf_kernels.png}
+\caption{\texttt{LEN=9} 时的三个方向核。原始尺寸分别为 $1\times9$、$7\times7$、$9\times1$；
+居中补零至 $9\times9$ 后按直角坐标系显示，共用色标。}
+\label{fig:kernels}
+\end{figure}
+图~\ref{fig:kernels} 中 $45^\circ$ 的主轴从左下指向右上，与角度定义一致。
+本次 1489 组参数和 2 种默认调用均复现了 R2023b 的矩阵输出。
+实现的关键是将连续运动模型落实为一致的网格、端点权重和浮点计算顺序。
+
+\begingroup\small
+\renewcommand{\refname}{参考资料}
+\begin{thebibliography}{9}
+\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+\bibitem{doc} MathWorks. \emph{fspecial: Create predefined 2-D filter}.
+\url{https://www.mathworks.com/help/images/ref/fspecial.html}.
+\bibitem{local} MathWorks. MATLAB R2023b，\texttt{fspecial.m} 的
+\texttt{motion} 分支，第 190--225 行，本机安装文件。
+\end{thebibliography}
+\endgroup
+
+\end{document}

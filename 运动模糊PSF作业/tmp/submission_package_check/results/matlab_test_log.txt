@@ -1,0 +1,31 @@
+Motion PSF exact-comparison run
+Reference: fspecial('motion', LEN, THETA)
+PASS: 104 LEN/THETA pairs and 2 default-call checks match exactly.
+Maximum absolute element-wise error: 0
+MATLAB version: 23.2.0.2365128 (R2023b)
+
+Example LEN=9, THETA=0 degrees; size=[1 9]; sum=0.99999999999999822
+    0.1111    0.1111    0.1111    0.1111    0.1111    0.1111    0.1111    0.1111    0.1111
+
+
+Example LEN=9, THETA=45 degrees; size=[7 7]; sum=0.99999999999999833
+         0         0         0         0         0    0.0292    0.0755
+         0         0         0         0    0.0292    0.0997    0.0292
+         0         0         0    0.0292    0.0997    0.0292         0
+         0         0    0.0292    0.0997    0.0292         0         0
+         0    0.0292    0.0997    0.0292         0         0         0
+    0.0292    0.0997    0.0292         0         0         0         0
+    0.0755    0.0292         0         0         0         0         0
+
+
+Example LEN=9, THETA=90 degrees; size=[9 1]; sum=0.99999999999999833
+    0.1111
+    0.1111
+    0.1111
+    0.1111
+    0.1111
+    0.1111
+    0.1111
+    0.1111
+    0.1111
+

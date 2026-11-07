@@ -1,0 +1,61 @@
+{
+  "experiment": "Experiment 1: Spatial-domain image enhancement",
+  "python": "3.9.7 (tags/v3.9.7:1016ef3, Aug 30 2021, 20:19:38) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "numpy": "2.0.2",
+  "pillow": "11.2.1",
+  "scikit_image_metrics": "0.24.0",
+  "matplotlib": "3.9.4",
+  "seed": 20261008,
+  "image_size": [
+    512,
+    512
+  ],
+  "input_images": {
+    "dark_wrinkled_face": {
+      "path": "data/source/older_woman_wrinkles.jpg",
+      "sha256": "b0ce747b1010628f5a992e7373c74b039961dc1b2a1fe07ab9ab8c7148db3d4c",
+      "source_dimensions": [
+        3000,
+        3000
+      ],
+      "prepared_summary": {
+        "mean_gray": 42.14419937133789,
+        "std_gray": 48.981554885098944,
+        "p01_gray": 0.0,
+        "p99_gray": 180.0,
+        "entropy_bits": 6.25172901007526,
+        "fraction_at_0": 0.20200347900390625,
+        "fraction_at_255": 3.814697265625e-06
+      }
+    },
+    "freckled_face": {
+      "path": "data/source/freckled_woman.jpg",
+      "sha256": "1bffb2c8136159d26ecbeef42d05f6a93fe0d0b46d5021b5795cf3df179b41e6",
+      "source_dimensions": [
+        3000,
+        2000
+      ],
+      "preparation": "center-cropped to square then resized with Lanczos; aspect ratio preserved",
+      "prepared_summary": {
+        "mean_gray": 62.71974563598633,
+        "std_gray": 58.66689846677124,
+        "p01_gray": 19.0,
+        "p99_gray": 209.0,
+        "entropy_bits": 6.316568763356372,
+        "fraction_at_0": 1.52587890625e-05,
+        "fraction_at_255": 3.814697265625e-06
+      }
+    }
+  },
+  "matlab_comparison": {
+    "function": "histeq (MATLAB R2023b Image Processing Toolbox)",
+    "available": true,
+    "mean_absolute_difference_vs_python": 29.38475799560547,
+    "maximum_absolute_difference_vs_python": 49
+  },
+  "six_filter_comparison_count": 6,
+  "classical_sensitivity_count": 10,
+  "advanced_sensitivity_count": 11,
+  "facial_smoothing_no_reference_count": 6
+}

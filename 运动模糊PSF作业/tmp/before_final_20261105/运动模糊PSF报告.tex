@@ -1,0 +1,116 @@
+\documentclass[UTF8,12pt,a4paper]{ctexart}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb,graphicx,booktabs,listings,xcolor,hyperref,fancyhdr,setspace,float}
+\hypersetup{hidelinks}
+\setstretch{1.18}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{3pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{图像处理课程作业}
+\fancyhead[R]{运动模糊 PSF}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{15pt}
+\renewcommand{\headrulewidth}{0.4pt}
+\lstdefinestyle{matlab}{language=Matlab,basicstyle=\ttfamily\footnotesize,keywordstyle=\bfseries,
+  commentstyle=\itshape\color{gray!80!black},numbers=left,numberstyle=\tiny\color{gray},
+  stepnumber=1,numbersep=7pt,frame=single,rulecolor=\color{gray!45},breaklines=true,
+  showstringspaces=false,tabsize=4,columns=fullflexible,keepspaces=true}
+
+\title{运动模糊点扩散函数的离散实现}
+\author{姓名：蔡斌\quad 班级：数学jd2401\\[4pt]
+学号：1024001338}
+\date{2026 年 11 月 2 日}
+
+\begin{document}
+\maketitle
+
+\section{运动模型}
+课上推导了匀速直线运动的连续核。本次考虑运动方向，并比较离散核与 MATLAB 的
+\lstinline|fspecial('motion',LEN,THETA)|。LEN 表示运动长度，单位为像素；THETA 从直角坐标系的水平正方向起算，逆时针为正。因此，$0^\circ$ 是水平运动，$90^\circ$ 是竖直运动。
+
+把运动中点放在原点，单位方向向量为 $(\cos\theta,\sin\theta)$。连续线段为
+\begin{equation}
+  \mathbf r(s)=(s\cos\theta,s\sin\theta),\qquad -\frac{L}{2}\le s\le \frac{L}{2}.
+\end{equation}
+理想 PSF 沿这条线段均匀分布：
+\begin{equation}
+ h(x,y)=\frac{1}{L}\int_{-L/2}^{L/2}
+ \delta(x-s\cos\theta)\,\delta(y-s\sin\theta)\,\mathrm ds.
+\end{equation}
+连续模型确定了运动轨迹，但没有规定像素网格上的边界采样和端点权重。这些离散细节会改变最终矩阵。
+
+\section{离散核的构造}
+对一个像素中心 $(x,y)$，沿运动方向的坐标为 $q=x\cos\theta+y\sin\theta$，到运动直线的垂直距离为 $d_{\perp}=|-x\sin\theta+y\cos\theta|$。到有限线段的距离为
+\begin{equation}
+ d=\sqrt{d_{\perp}^{2}+\max\left(|q|-\frac{L}{2},0\right)^2}.
+\end{equation}
+可以按距离给像素分配权重，再归一化。但 MATLAB 还要确定核尺寸、端点处理和镜像顺序。R2023b 的实现先生成最小半核，再计算距离；端点附近改用欧氏距离，随后转换成一像素宽的线性权重、镜像并归一化。代码保留了其中的 \texttt{eps} 修正项。\footnote{MathWorks, \emph{fspecial: Create predefined 2-D filter}, \url{https://www.mathworks.com/help/images/ref/fspecial.html}.}
+
+\section{MATLAB 对照}
+AI 初版按到有限线段的距离给方阵赋权。对 LEN=9、THETA=45$^\circ$，初版支持域为 $11\times11$，MATLAB 输出为 $7\times7$。差异来自核尺寸的确定方式：MATLAB 根据角度生成最小半核网格。
+
+最终实现依次计算半核边界、端点欧氏距离和像素权重，再镜像展开并归一化。水平、竖直运动分别输出行向量和列向量。
+
+\subsection*{AI 交互}
+交互从题目中的“直接编写运动 PSF”开始。AI 给出距离采样初版，MATLAB 对照显示 $45^\circ$ 核尺寸不同；随后围绕半核网格和端点处理改写函数，再用多组 LEN、THETA 复测。
+
+\subsection*{对话截图}
+\begin{center}
+\fbox{\parbox[c][3.0cm][c]{0.90\textwidth}{\centering 截图 1：原始提问与 AI 初版}}
+\vspace{3mm}
+
+\fbox{\parbox[c][3.0cm][c]{0.90\textwidth}{\centering 截图 2：尺寸差异与修改分析}}
+\vspace{3mm}
+
+\fbox{\parbox[c][3.0cm][c]{0.90\textwidth}{\centering 截图 3：最终函数与 MATLAB 测试结果}}
+\end{center}
+
+\clearpage
+\section{函数实现}
+\lstinputlisting[style=matlab]{motion_psf.m}
+
+\clearpage
+\section{结果验证}
+测试程序将函数与本机 MATLAB R2023b 的 \texttt{fspecial} 比较。每组先检查矩阵尺寸，再用 \texttt{isequal} 检查元素。测试参数为：
+\begin{itemize}
+  \item LEN：$[0.25,1,1.25,2.5,5,9,13.7,20]$；
+  \item THETA：$[-180,-90,-45,0,30,45,89.5,90,135,180,225,270,360]$ 度。
+\end{itemize}
+共比较 $8\times13=104$ 组，另检查无参数调用和省略 THETA 的默认调用。
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+检查内容 & 通过数量 & 最大绝对误差 \\
+\midrule
+LEN/THETA 参数组合 & 104/104 & 0 \\
+默认参数调用 & 2/2 & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+LEN=9 时几个方向的输出如下。系数和略小于 1，是 MATLAB 归一化时加入浮点修正项所致；本函数与内置输出逐元素相同。
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+THETA & 矩阵大小 & 系数和 \\
+\midrule
+$0^\circ$ & $1\times9$ & 0.99999999999999822 \\
+$45^\circ$ & $7\times7$ & 0.99999999999999833 \\
+$90^\circ$ & $9\times1$ & 0.99999999999999833 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+图中把核居中放入 $9\times9$ 矩阵显示；测试比较的是未补零的原始输出。
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.78\textwidth]{截图/psf_kernels.png}
+  \caption{LEN=9 时 THETA 为 $0^\circ$、$45^\circ$ 和 $90^\circ$ 的离散核}
+\end{figure}
+
+验证环境：MATLAB R2023b（23.2.0.2365128）。\par
+\noindent 测试脚本：\texttt{test\_motion\_psf.m}。
+
+\end{document}

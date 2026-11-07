@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<title>初版生成</title><style>
+* { box-sizing: border-box; }
+html, body { margin:0; background:white; }
+body { font-family:"Microsoft YaHei",sans-serif; color:#1f2730; }
+.card { width:1200px; border:1px solid #bac4ce; background:white; }
+.head { display:flex; justify-content:space-between; padding:15px 24px;
+        border-bottom:1px solid #d6dde4; background:#f2f5f8; }
+.title { font-size:24px; font-weight:600; }
+.meta { font-size:20px; color:#4b5e70; }
+.exchange { padding:13px 24px 0; }
+.label { color:#38546b; font-size:20px; font-weight:600; margin:0 0 3px; }
+p { font-size:24px; line-height:1.43; margin:0 0 9px; text-align:justify; }
+code { font-family:Consolas,monospace; font-size:23px; }
+.foot { padding:10px 24px 13px; color:#66717b; font-size:18px; }
+</style>
+<article class="card">
+<div class="head"><span class="title">01　初版生成</span>
+<span class="meta">AI 问答摘录 · 第 1 轮</span></div>
+<div class="exchange"><div class="label">提问</div><p>请直接编写 MATLAB 函数 motion_psf_ai(len,theta)，根据运动长度（像素）和直角坐标系逆时针角度（度），构造匀速直线运动的离散点扩散函数，目标是与 MATLAB fspecial(&#x27;motion&#x27;,LEN,THETA) 输出一致。</p>
+<div class="label">AI · Luna</div><p>代码把运动轨迹视为长度为 <code>len</code> 的连续线段，逐像素计算线段穿过该像素方格的长度，再将结果归一化。角度按直角坐标系逆时针解释，并在写入矩阵时映射到向下递增的图像行坐标。</p></div>
+<div class="foot">实际问答摘录 · AI 初版完整代码见报告第 2 节</div></article></html>

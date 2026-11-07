@@ -1,0 +1,22 @@
+初版以 $p_0=-\mathrm{LEN}\,d/2$ 为起点，却在裁剪时采用
+$p(t)=p_0+td$、$0\le t\le1$。由于 $d$ 是单位向量，实际裁剪的轨迹只有 1 像素长。
+保留端点定义，将第 20 行的分母由 \texttt{d(k)} 改为
+\texttt{p1(k)-p0(k)}，即可让参数区间覆盖整条线段。
+
+\begin{table}[H]\centering\small
+\caption{\texttt{LEN=9} 时的初版与参数化修正结果}
+\begin{tabular}{ccccc}
+\toprule
+角度 & 初版尺寸 & 修正后尺寸 & 内置尺寸 & 修正后最大误差\\
+\midrule
+$0^\circ$ & $1\times1$ & $1\times9$ & $1\times9$ & $2.637\times10^{-16}$\\
+$45^\circ$ & $2\times2$ & $7\times7$ & $7\times7$ & $5.743\times10^{-2}$\\
+$90^\circ$ & $1\times1$ & $9\times1$ & $9\times1$ & $2.637\times10^{-16}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+修正后尺寸一致，但三个例子的 \texttt{isequal} 均为假。
+原因是按像素方格内的轨迹长度积分，与按像素中心距离分配权重采用了不同的离散规则。
+其中 $45^\circ$ 的差异达到 $0.05743$，不能归因于浮点舍入。
+因此，最终函数采用第 1 节给出的半核、端点权重及归一化规则。

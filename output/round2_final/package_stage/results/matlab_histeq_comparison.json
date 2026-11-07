@@ -1,0 +1,6 @@
+{
+  "function": "histeq (MATLAB R2023b Image Processing Toolbox)",
+  "available": true,
+  "mean_absolute_difference_vs_python": 29.38475799560547,
+  "maximum_absolute_difference_vs_python": 49
+}

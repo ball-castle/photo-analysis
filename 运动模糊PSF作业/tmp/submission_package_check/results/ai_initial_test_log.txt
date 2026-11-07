@@ -1,0 +1,4 @@
+Actual first-round AI code, tested in MATLAB 23.2.0.2365128 (R2023b)
+LEN=9 THETA=0: AI=[1 1], reference=[1 9], isequal=0
+LEN=9 THETA=45: AI=[2 2], reference=[7 7], isequal=0
+LEN=9 THETA=90: AI=[1 1], reference=[9 1], isequal=0

@@ -1,0 +1,332 @@
+{
+  "Status": "TEMPLATE_PRESERVATION_PASS",
+  "Failures": [],
+  "SourceSHA256": "1C550BABA970EC5E25CF625F777AEDAD6993B56F34EF72E4BE4BD53EC2EC68C0",
+  "BackupSHA256": "1C550BABA970EC5E25CF625F777AEDAD6993B56F34EF72E4BE4BD53EC2EC68C0",
+  "FinalWordPages": 24,
+  "FinalDocLength": 10779136,
+  "FinalDocSignature": "D0CF11E0A1B11AE1",
+  "SectionGeometry": [
+    {
+      "PageWidthPt": 595.2999877929688,
+      "PageHeightPt": 841.9000244140625,
+      "TopMarginPt": 62.29999923706055,
+      "BottomMarginPt": 72.0,
+      "LeftMarginPt": 90.0,
+      "RightMarginPt": 90.0,
+      "HeaderDistancePt": 42.54999923706055,
+      "FooterDistancePt": 49.599998474121094,
+      "Orientation": 0
+    }
+  ],
+  "OriginalTable": {
+    "Rows": 7,
+    "Columns": 6,
+    "Cells": 22,
+    "RowHeights": [
+      {
+        "Index": 1,
+        "HeightPt": 31.450000762939453,
+        "HeightRule": 1
+      },
+      {
+        "Index": 2,
+        "HeightPt": 31.049999237060547,
+        "HeightRule": 1
+      },
+      {
+        "Index": 3,
+        "HeightPt": 29.450000762939453,
+        "HeightRule": 1
+      },
+      {
+        "Index": 4,
+        "HeightPt": 29.450000762939453,
+        "HeightRule": 1
+      },
+      {
+        "Index": 5,
+        "HeightPt": 130.14999389648438,
+        "HeightRule": 1
+      },
+      {
+        "Index": 6,
+        "HeightPt": 353.3999938964844,
+        "HeightRule": 1
+      },
+      {
+        "Index": 7,
+        "HeightPt": 598.9500122070312,
+        "HeightRule": 1
+      }
+    ],
+    "CellGeometryAndStyle": [
+      {
+        "Row": 1,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "班级",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 1,
+        "Column": 2,
+        "WidthPt": 117.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "",
+        "Font": "Times New Roman",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 1,
+        "Column": 3,
+        "WidthPt": 54.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "日 期",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 1,
+        "Column": 4,
+        "WidthPt": 81.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "",
+        "Font": "Times New Roman",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 1,
+        "Column": 5,
+        "WidthPt": 63.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "成绩评定",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 1,
+        "Column": 6,
+        "WidthPt": 99.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "",
+        "Font": "Times New Roman",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "姓名",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 2,
+        "WidthPt": 117.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "",
+        "Font": "Times New Roman",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 3,
+        "WidthPt": 54.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "实验室",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 4,
+        "WidthPt": 81.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "",
+        "Font": "Times New Roman",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 5,
+        "WidthPt": 63.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "老师签名",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 6,
+        "WidthPt": 99.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "",
+        "Font": "Times New Roman",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 3,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 29.450000762939453,
+        "Text": "实验名称",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 3,
+        "Column": 2,
+        "WidthPt": 414.0,
+        "HeightPt": 29.450000762939453,
+        "Text": "实验一 图像增强的空域方法实现",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": false,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 4,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 29.450000762939453,
+        "Text": "所用软件",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 4,
+        "Column": 2,
+        "WidthPt": 414.0,
+        "HeightPt": 29.450000762939453,
+        "Text": "Python 3.9.7、NumPy、Pillow、Matplotlib；MATLAB R2023b（仅均衡化对照）",
+        "Font": "",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": false,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 5,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 130.14999389648438,
+        "Text": "实 验 目 的 及 内 容",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 5,
+        "Column": 2,
+        "WidthPt": 414.0,
+        "HeightPt": 130.14999389648438,
+        "Text": "目的：掌握空域图像增强；内容：完成指导书编号1、3、4中的直方图、边缘锐化及平滑滤波实验，详见附页。",
+        "Font": "",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": false,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 6,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 353.3999938964844,
+        "Text": "实 验 原 理 步 骤 、 核心代码",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 6,
+        "Column": 2,
+        "WidthPt": 414.0,
+        "HeightPt": 353.3999938964844,
+        "Text": "公式、实验步骤与实际运行的核心源代码详见附页。",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 9.0,
+        "Bold": false,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 7,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 598.9500122070312,
+        "Text": "实 验 结 果 及 分 析",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 7,
+        "Column": 2,
+        "WidthPt": 414.0,
+        "HeightPt": 598.9500122070312,
+        "Text": "结果图表、实测指标及分析见附页。 （写不完时，可另附稿纸。）",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 9.0,
+        "Bold": false,
+        "LineSpacingPt": 12.0
+      }
+    ]
+  },
+  "PersonalGradeSignatureFieldsBlank": true,
+  "OriginalResultNotePresent": true
+}

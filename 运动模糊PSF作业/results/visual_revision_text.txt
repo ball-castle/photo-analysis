@@ -1,0 +1,317 @@
+图像处理课程作业
+运动模糊PSF
+运动模糊点扩散函数的离散实现
+蔡斌
+数学jd2401
+1024001338
+2026 年11 月5 日
+1
+运动模型与离散构造
+由长度LEN 和方向角THETA 构造运动PSF。长度以像素计，角度从水平正方向逆时针
+起算[1]。离散构造采用MATLAB R2023b 的fspecial 规则[2]。
+1.1
+连续运动模型
+设轨迹总长为𝐿> 0，方向角为𝜃（弧度），运动中点位于原点。均匀曝光下，连续核为
+ℎ𝑐(𝑥, 𝑦) = 1
+𝐿
+∫
+𝐿/2
+−𝐿/2
+𝛿(𝑥−𝑡cos 𝜃) 𝛿(𝑦−𝑡sin 𝜃) d𝑡.
+(1)
+核的质量沿运动线段均匀分布，总积分为1。
+1.2
+半核网格
+离散构造取有效长度ℓ、离散线段半长𝑎和方向角𝜙：
+ℓ= max(1, LEN),
+𝑎= ℓ−1
+2
+,
+𝜙= mod(THETA, 180)
+180
+𝜋.
+(2)
+例如，LEN=9 的水平核包含9 个像素中心，首末中心间距为8，故𝑎= 4。连续模型中的𝐿/2
+则表示轨迹半长。
+记𝑐= cos 𝜙、𝑠= sin 𝜙、𝜎= sign(𝑐)，𝜀= eps。半核边界由方向确定：
+𝑏𝑥= ﬁx(𝑎𝑐+ 𝜎−ℓ𝜀),
+𝑏𝑦= ﬁx(𝑎𝑠+ 1 −ℓ𝜀).
+(3)
+其中fix 向零取整。网格坐标取𝑥= 0 : 𝜎: 𝑏𝑥、𝑦= 0 : 𝑏𝑦；水平核和竖直核分别为行向量
+和列向量。
+1.3
+端点权重与归一化
+有符号垂距为𝑢= 𝑦𝑐−𝑥𝑠。当
+p
+𝑥2 + 𝑦2 ≥𝑎且|𝑢| ≤1 时，端点距离为
+𝑑=
+r
+𝑢2 +
+
+𝑎−
+𝑥+ 𝑢𝑠
+𝑐
+
+2
+;
+其余点取𝑑= |𝑢|.
+(4)
+上式按双精度运算，竖直方向使用cos(pi/2) 的计算值，约为6.123 × 10−17。半核权重及
+镜像后的归一化分别为
+𝑤= max(1 + 𝜀−𝑑, 0),
+ℎ=
+𝑊
+Í
+𝑖,𝑗𝑊𝑖𝑗+ 𝜀ℓ2,
+(5)
+其中𝑊为半核的镜像展开矩阵。输出按图像行坐标调整上下顺序。
+1 / 5
+
+图像处理课程作业
+运动模糊PSF
+2
+AI 初版与修改
+AI 初版以线段穿过像素方格的长度作为权重，完整函数见代码1。
+代码1
+AI 初版的轨迹积分实现
+1
+function h = motion_psf_ai(len, theta)
+2
+% Motion PSF for a length‐len segment at a counterclockwise Cartesian angle.
+3
+validateattributes(len, {'numeric'}, {'real','finite','scalar','positive'});
+4
+validateattributes(theta, {'numeric'}, {'real','finite','scalar'});
+5
+d = [cosd(theta), sind(theta)];
+6
+p0 = ‐len*d/2;
+7
+p1 =
+len*d/2;
+8
+xmin = floor(min(p0(1),p1(1)) ‐ 0.5);
+9
+xmax = ceil (max(p0(1),p1(1)) + 0.5);
+10
+ymin = floor(min(p0(2),p1(2)) ‐ 0.5);
+11
+ymax = ceil (max(p0(2),p1(2)) + 0.5);
+12
+h = zeros(ymax‐ymin+1, xmax‐xmin+1);
+13
+for yy = ymin:ymax
+14
+for xx = xmin:xmax
+15
+q = [xx, yy]; lo = 0; hi = 1;
+16
+for k = 1:2
+17
+if d(k) == 0
+18
+if abs(q(k)‐p0(k)) > 0.5, lo = 1; hi = 0; end
+19
+else
+20
+t = sort((q(k)+[‐0.5 0.5]‐p0(k))/d(k));
+21
+lo = max(lo,t(1)); hi = min(hi,t(2));
+22
+end
+23
+end
+24
+h(ymax‐yy+1,xx‐xmin+1) = len*max(0,hi‐lo);
+25
+end
+26
+end
+27
+h = h/sum(h(:));
+28
+[r,c] = find(h > 0);
+29
+h = h(min(r):max(r),min(c):max(c));
+30
+end
+初版采用𝑝(𝑡) = 𝑝0 + 𝑡𝑑、0 ≤𝑡≤1，而𝑑是单位向量，对应的轨迹长度为1 像素。将裁剪
+参数的分母由d(k) 改为p1(k)‐p0(k) 后，参数区间覆盖端点之间的整条线段。
+表1
+LEN=9 时的参数化修正结果
+角度
+初版尺寸
+修正后尺寸
+内置尺寸
+修正后最大误差
+0◦
+1 × 1
+1 × 9
+1 × 9
+2.637 × 10−16
+45◦
+2 × 2
+7 × 7
+7 × 7
+5.743 × 10−2
+90◦
+1 × 1
+9 × 1
+9 × 1
+2.637 × 10−16
+表1 中，参数化修正恢复了矩阵尺寸；45◦下的权重误差为0.05743。这一差异来自离
+散方式：初版按方格内轨迹长度积分，目标核按像素中心距离和端点位置赋权。最终函数
+据此采用第1 节的半核构造。
+2 / 5
+
+图像处理课程作业
+运动模糊PSF
+3
+函数实现
+函数依次完成半核取样、端点赋权、镜像展开和归一化。输入为有限实数double 标
+量，LEN>0；默认值为LEN=9、THETA=0。
+代码2
+运动模糊PSF 函数
+1
+function h = motion_psf(len, theta)
+2
+%MOTION_PSF Motion‐blur PSF compatible with MATLAB R2023b fspecial.
+3
+% Discretization follows the R2023b fspecial motion branch.
+4
+% LEN is in pixels; THETA is counter‐clockwise from the horizontal axis.
+5
+narginchk(0, 2);
+6
+if nargin < 1, len = 9; end
+7
+if nargin < 2, theta = 0; end
+8
+validateattributes(len, {'double'}, ...
+9
+{'positive','finite','real','nonempty','scalar'}, mfilename, 'LEN', 1);
+10
+validateattributes(theta, {'double'}, ...
+11
+{'finite','real','nonempty','scalar'}, mfilename, 'THETA', 2);
+12
+len = max(1, len);
+13
+halfLength = (len ‐ 1) / 2;
+14
+phi = mod(theta, 180) / 180 * pi;
+15
+cosPhi = cos(phi);
+16
+sinPhi = sin(phi);
+17
+xSign = sign(cosPhi);
+18
+lineWidth = 1;
+19
+20
+% Smallest half‐grid for this angle.
+21
+sx = fix(halfLength*cosPhi + lineWidth*xSign ‐ len*eps);
+22
+sy = fix(halfLength*sinPhi + lineWidth ‐ len*eps);
+23
+[x, y] = meshgrid(0:xSign:sx, 0:sy);
+24
+25
+% Perpendicular distance, with endpoint correction.
+26
+distToLine = y*cosPhi ‐ x*sinPhi;
+27
+radialDistance = sqrt(x.^2 + y.^2);
+28
+lastPixel = find((radialDistance >= halfLength) & ...
+29
+(abs(distToLine) <= lineWidth));
+30
+parallelEndpointDistance = halfLength ‐ abs( ...
+31
+(x(lastPixel) + distToLine(lastPixel)*sinPhi) / cosPhi);
+32
+distToLine(lastPixel) = sqrt( ...
+33
+distToLine(lastPixel).^2 + parallelEndpointDistance.^2);
+34
+35
+% Convert distance to weights, mirror, and normalize.
+36
+distToLine = lineWidth + eps ‐ abs(distToLine);
+37
+distToLine(distToLine < 0) = 0;
+38
+h = rot90(distToLine, 2);
+39
+h(end+(1:end)‐1, end+(1:end)‐1) = distToLine;
+40
+h = h ./ (sum(h(:)) + eps*len*len);
+41
+if cosPhi > 0, h = flipud(h); end
+42
+end
+3 / 5
+
+图像处理课程作业
+运动模糊PSF
+4
+测试结果
+在MATLAB R2023b（23.2.0.2365128）中，以fspecial('motion',LEN,THETA) 为
+参照，比较输出尺寸及逐元素系数。表2 的1489 组参数和2 种默认调用均通过isequal。
+表2
+最终函数与内置函数的对照
+测试组
+参数覆盖
+一致数量
+最大误差
+常规参数
+8 个长度× 13 个角度
+104/104
+0
+边界参数
+11 个长度× 35 个角度
+385/385
+0
+随机参数
+均匀抽取长度与角度
+1000/1000
+0
+默认调用
+无参数、仅指定长度
+2/2
+0
+最大误差定义为max𝑖, 𝑗|ℎ𝑖𝑗−ℎref
+𝑖𝑗|。
+图1
+LEN=9 时的方向核。原始尺寸为1 × 9、7 × 7、9 × 1；补零至9 × 9 后按直角坐标系显示，共
+用色标。
+图1 给出水平、斜向和竖直运动的权重分布。边界与随机测试的1385 个输出均为有限
+非负系数，满足中心对称；系数和与1 的最大偏差为2.243 × 10−14。
+测试参数
+常规组合
+长度：[0.25, 1, 1.25, 2.5, 5, 9, 13.7, 20]。
+角度：[−180, −90, −45, 0, 30, 45, 89.5, 90, 135, 180, 225, 270, 360]◦。
+边界与随机组合
+边界长度覆盖𝜀、1 与9 的邻域及100；角度覆盖−180◦至360◦间各90◦倍数及左右邻域。
+随机长度取自[0.05, 100.05)，角度取自[−720, 720)；使用twister，种子为20261105。
+4 / 5
+
+图像处理课程作业
+运动模糊PSF
+5
+AI 交互记录
+图2–4 按问答原文摘录排版，展示代码生成、差异分析与结果核验。
+图2
+初版函数的生成
+图3
+参数化修正与离散权重分析
+图4
+最终函数与输出核验
+参考资料
+[1] MathWorks. fspecial: Create predefined 2-D filter.
+https://www.mathworks.com/help/images/ref/fspecial.html.
+[2] MathWorks. MATLAB R2023b，fspecial.m，motion 分支，第190–225 行。
+5 / 5

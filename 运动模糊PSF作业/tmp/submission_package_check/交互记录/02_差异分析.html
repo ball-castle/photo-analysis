@@ -1,0 +1,23 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<title>参数化与离散权重</title><style>
+* { box-sizing: border-box; }
+html, body { margin:0; background:white; }
+body { font-family:"Microsoft YaHei",sans-serif; color:#1f2730; }
+.card { width:1360px; border:1px solid #cbd4da; background:white; }
+.head { display:flex; justify-content:space-between; padding:14px 28px;
+        border-bottom:1px solid #d6dde4; background:#edf2f5; }
+.title { font-size:28px; font-weight:600; color:#213e50; }
+.meta { font-size:24px; color:#64717a; }
+.exchange { padding:17px 28px 16px; }
+.row { display:grid; grid-template-columns:78px 1fr; gap:18px; }
+.row + .row { margin-top:12px; padding-top:12px; border-top:1px solid #edf0f3; }
+.label { color:#38546b; font-size:26px; font-weight:600; padding-top:3px; }
+p { font-size:32px; line-height:1.45; margin:0; text-align:left; }
+code { font-family:Consolas,monospace; font-size:31px; }
+</style>
+<article class="card">
+<div class="head"><span class="title">02　参数化与离散权重</span>
+<span class="meta">Luna · 第 3 轮</span></div>
+<div class="exchange"><div class="row"><div class="label">提问</div><p>请重新核对，明确正确分母，并说明为何同尺寸仍不等于相同离散核。</p></div>
+<div class="row"><div class="label">答复</div><p><code>t</code>的正确分母是 <code>p1(k)-p0(k)</code>：<code>d</code>仍为单位向量，端点差对应长度 <code>len</code>，由此把线段投影参数归一到[0,1]。 […] 方格相交长度积分按穿格长度赋权，R2023b则按像素中心垂距和端点修正规则赋权后镜像归一。</p></div></div>
+</article></html>

@@ -1,0 +1,333 @@
+{
+  "Status": "TEMPLATE_PRESERVATION_PASS",
+  "Failures": [],
+  "SourceSHA256": "1C550BABA970EC5E25CF625F777AEDAD6993B56F34EF72E4BE4BD53EC2EC68C0",
+  "BackupSHA256": "1C550BABA970EC5E25CF625F777AEDAD6993B56F34EF72E4BE4BD53EC2EC68C0",
+  "FinalWordPages": 23,
+  "FinalDocLength": 11090432,
+  "FinalDocSignature": "D0CF11E0A1B11AE1",
+  "SectionGeometry": [
+    {
+      "PageWidthPt": 595.2999877929688,
+      "PageHeightPt": 841.9000244140625,
+      "TopMarginPt": 62.29999923706055,
+      "BottomMarginPt": 72.0,
+      "LeftMarginPt": 90.0,
+      "RightMarginPt": 90.0,
+      "HeaderDistancePt": 42.54999923706055,
+      "FooterDistancePt": 49.599998474121094,
+      "Orientation": 0
+    }
+  ],
+  "OriginalTable": {
+    "Rows": 7,
+    "Columns": 6,
+    "Cells": 22,
+    "RowHeights": [
+      {
+        "Index": 1,
+        "HeightPt": 31.450000762939453,
+        "HeightRule": 1
+      },
+      {
+        "Index": 2,
+        "HeightPt": 31.049999237060547,
+        "HeightRule": 1
+      },
+      {
+        "Index": 3,
+        "HeightPt": 29.450000762939453,
+        "HeightRule": 1
+      },
+      {
+        "Index": 4,
+        "HeightPt": 29.450000762939453,
+        "HeightRule": 1
+      },
+      {
+        "Index": 5,
+        "HeightPt": 130.14999389648438,
+        "HeightRule": 1
+      },
+      {
+        "Index": 6,
+        "HeightPt": 353.3999938964844,
+        "HeightRule": 1
+      },
+      {
+        "Index": 7,
+        "HeightPt": 598.9500122070312,
+        "HeightRule": 1
+      }
+    ],
+    "CellGeometryAndStyle": [
+      {
+        "Row": 1,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "班级",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 1,
+        "Column": 2,
+        "WidthPt": 117.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "数学jd2401",
+        "Font": "",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 1,
+        "Column": 3,
+        "WidthPt": 54.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "日 期",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 1,
+        "Column": 4,
+        "WidthPt": 81.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "",
+        "Font": "Times New Roman",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 1,
+        "Column": 5,
+        "WidthPt": 63.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "成绩评定",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 1,
+        "Column": 6,
+        "WidthPt": 99.0,
+        "HeightPt": 31.450000762939453,
+        "Text": "",
+        "Font": "Times New Roman",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "姓名",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 2,
+        "WidthPt": 117.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "蔡斌",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 3,
+        "WidthPt": 54.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "实验室",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 4,
+        "WidthPt": 81.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "",
+        "Font": "Times New Roman",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 5,
+        "WidthPt": 63.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "老师签名",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 2,
+        "Column": 6,
+        "WidthPt": 99.0,
+        "HeightPt": 31.049999237060547,
+        "Text": "",
+        "Font": "Times New Roman",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 3,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 29.450000762939453,
+        "Text": "实验名称",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 3,
+        "Column": 2,
+        "WidthPt": 414.0,
+        "HeightPt": 29.450000762939453,
+        "Text": "实验一 图像增强的空域方法实现",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": false,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 4,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 29.450000762939453,
+        "Text": "所用软件",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 4,
+        "Column": 2,
+        "WidthPt": 414.0,
+        "HeightPt": 29.450000762939453,
+        "Text": "Python 3.9.7、NumPy、Pillow、Matplotlib；MATLAB R2023b（仅均衡化对照）",
+        "Font": "",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": false,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 5,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 130.14999389648438,
+        "Text": "实 验 目 的 及 内 容",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 5,
+        "Column": 2,
+        "WidthPt": 414.0,
+        "HeightPt": 130.14999389648438,
+        "Text": "目的：理解空域图像增强的原理与实现过程。 完成：直方图计算、均衡化及规定化。 比较：Roberts、Sobel、Prewitt、Laplacian 锐化。 生成：高斯噪声、椒盐噪声和混合噪声。 比较均值、中值、高斯、双边、引导与NLM六种滤波。 以PSNR、SSIM、运行时间与视觉效果进行评价。",
+        "Font": "",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": false,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 6,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 353.3999938964844,
+        "Text": "实 验 原 理 步 骤 、 核心代码",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 6,
+        "Column": 2,
+        "WidthPt": 414.0,
+        "HeightPt": 353.3999938964844,
+        "Text": "（按第一次上机实验的内容逐一填写） 直方图：H(k)=n_k，p(k)=n_k/(MN)，CDF(k)=Σ_{j≤k}p(j)。 均衡化：s=round[255(CDF−CDFmin)/(1−CDFmin)]，将有效 CDF 线性映射至[0,255]；规定化查找首个CDF_target≥CDF_source。 本次目标为0.52·N(65,13²)+0.48·N(185,13²)（主程序传参）。 锐化：Roberts为2×2交叉差分；Sobel/Prewitt用3×3梯度核， 以E=√(Gx²+Gy²)取幅值。Laplacian采用中心为正的四邻域核。 正中心核锐化用I+L；保留浮点符号响应，末端clip至[0,255]。 平滑：均值为归一化加权和；中值取窗口次序统计量中位数。 高斯权重Gσ∝exp[−(x²+y²)/(2σ²)]，使用归一化可分离核。 双边权重结合空间距离和灰度差；引导滤波拟合局部线性q=aI+b。 NLM按补丁距离加权，w=exp[−max(d²−2σn²,0)/h²]。 步骤：读入两张灰度图并统一512×512，记录输入统计。 按固定种子生成高斯、椒盐与混合噪声；执行指导书任务1、3、4。 保存图像、参数敏感性表及运行时间；用干净参考计算PSNR/SSIM。 人脸美容平滑无无瑕疵参考，只作视觉分析。 直方图均衡化代码（histogram.py）： lut = np.clip(np.rint((cdf - cdf_min) * (255.0 / denominator)), 0, 255) return lut[source].astype(np.uint8) Laplacian叠加代码（spatial.py）： \"overlay\": np.clip(np.rint(source + response), 0, 255).astype(np.uint8),",
+        "Font": "",
+        "FontFarEast": "宋体",
+        "FontSizePt": 9.0,
+        "Bold": false,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 7,
+        "Column": 1,
+        "WidthPt": 36.0,
+        "HeightPt": 598.9500122070312,
+        "Text": "实 验 结 果 及 分 析",
+        "Font": "宋体",
+        "FontFarEast": "宋体",
+        "FontSizePt": 10.5,
+        "Bold": true,
+        "LineSpacingPt": 12.0
+      },
+      {
+        "Row": 7,
+        "Column": 2,
+        "WidthPt": 414.0,
+        "HeightPt": 598.9500122070312,
+        "Text": "均衡化：均值42.14→103.25，标准差48.98→82.54，P99由180升至252。 暗部层次展开、亮部变强；均值/分布变化不能单独说明视觉更优。 规定化：均值125.02、标准差59.10、P1–P99=61–212，熵5.486 bit。 Roberts、Sobel、Prewitt、Laplacian均增强边缘；Sobel响应较连续。 Prewitt权重均匀；Roberts定位细但易受噪声影响。 Laplacian中心正核I+L保留亮暗方向；|L|和拉伸仅作响应图显示。 噪声：高斯σ=18，椒盐总密度0.04，混合σ=12/密度0.02。 方法性质：均值/高斯平滑随机噪声；中值更能去除椒盐脉冲。 边缘保持：双边按空间和灰度加权；引导、NLM留较多邻近结构。 以下指标用同一512×512混合噪声和加噪前图作参考。 均值5×5：30.497dB/0.7671/0.0087s（六法组最快）。 中值5×5：32.494dB/0.8502/0.0855s（该组PSNR、SSIM均最高）。 高斯7×7：31.017/0.8004/0.0103s；双边：21.309/0.5881/0.2569s。 引导：26.298/0.6404/0.0354s；NLM：26.730/0.7006/0.4930s。 窗口组中值5×5最高PSNR32.494，计时0.0905s；综合表另测0.0855s。 两值来自同次主程序运行中的不同计时调用；中值7×7 SSIM最高0.8661。 但其PSNR31.836、耗时0.1582s；“最佳”需限定评价指标。 参数敏感性中σr、ε、h增大提升本混合噪声指标；更平滑会损纹理。 NLM搜索窗5×5→11×11（h=22）耗时0.261→1.425s。 完成任务1、3、4；美容平滑无真值，只作视觉评价；结论限于单图和本轮噪声。 （写不完时，可另附稿纸。）",
+        "Font": "",
+        "FontFarEast": "宋体",
+        "FontSizePt": 9.0,
+        "Bold": false,
+        "LineSpacingPt": 12.0
+      }
+    ]
+  },
+  "PersonalGradeSignatureFieldsBlank": true,
+  "ClassAndNameFieldsMatch": true,
+  "OriginalResultNotePresent": true
+}

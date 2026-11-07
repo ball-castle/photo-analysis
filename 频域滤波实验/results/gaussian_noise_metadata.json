@@ -1,0 +1,12 @@
+{
+  "reference": "cameraman.tif before added Gaussian noise",
+  "noise_model": "independent zero-mean Gaussian, then clipped to [0,255]",
+  "sigma": 20.0,
+  "seed": 20261106,
+  "noisy_psnr_db": 22.44929644112006,
+  "ideal_lowpass_ringing_edge": {
+    "edge_row": 94,
+    "edge_column": 145,
+    "D0_bins": 16
+  }
+}

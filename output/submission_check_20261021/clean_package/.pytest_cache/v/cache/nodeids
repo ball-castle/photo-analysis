@@ -1,0 +1,18 @@
+[
+  "tests/test_histogram.py::test_bimodal_target_is_normalized_and_has_two_peaks",
+  "tests/test_histogram.py::test_equalization_keeps_a_constant_image_constant",
+  "tests/test_histogram.py::test_equalization_spreads_two_levels_and_preserves_shape",
+  "tests/test_histogram.py::test_gray_histogram_counts_every_uint8_value",
+  "tests/test_histogram.py::test_histogram_matching_maps_ordered_source_levels_to_target",
+  "tests/test_io_metrics.py::test_metrics_return_perfect_scores_for_identical_reference",
+  "tests/test_io_metrics.py::test_square_preparation_center_crops_instead_of_stretching",
+  "tests/test_io_metrics.py::test_ssim_rejects_images_smaller_than_its_valid_window",
+  "tests/test_spatial_filters.py::test_box_filter_preserves_constant_for_large_window_and_one_pixel",
+  "tests/test_spatial_filters.py::test_box_filter_reflects_edges_without_repeating_edge_pixels",
+  "tests/test_spatial_filters.py::test_edge_operators_return_finite_arrays_with_original_shape",
+  "tests/test_spatial_filters.py::test_edge_preserving_filters_keep_constant_input_and_support_small_arrays",
+  "tests/test_spatial_filters.py::test_laplacian_sign_for_bright_impulse_supports_additive_sharpening",
+  "tests/test_spatial_filters.py::test_mean_and_gaussian_filters_preserve_constant_boundaries",
+  "tests/test_spatial_filters.py::test_median_filter_removes_center_impulse_and_handles_tiny_images",
+  "tests/test_spatial_filters.py::test_zero_noise_is_exact_and_seed_is_reproducible"
+]

@@ -1,0 +1,7 @@
+MATLAB version: 23.2.0.2365128 (R2023b)
+Random seed: 20261105 (twister)
+Boundary cases: 385 / 385 exact
+Random cases: 1000 / 1000 exact
+Maximum absolute element-wise error: 0
+Maximum abs(sum(h)-1): 2.2426505097428162e-14
+Finite, nonnegative and centrosymmetric: 1385 / 1385

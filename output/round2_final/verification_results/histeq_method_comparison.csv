@@ -1,0 +1,5 @@
+method,mae_vs_python,max_abs_diff_vs_python,unique_output_levels,output_mean_gray
+"MATLAB histeq(I), default",29.3847579956055,49,46,132.638248443604
+"MATLAB histeq(I,256)",29.4146728515625,51,139,132.668163299561
+"Direct full-CDF mapping",30.7545967102051,52,140,134.008087158203
+"Python CDF-min mapping reproduced",0,0,150,103.253490447998

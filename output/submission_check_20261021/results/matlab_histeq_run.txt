@@ -1,0 +1,8 @@
+Command: matlab -batch "cd('C:\Users\CAI BIN\Desktop\photo_analysis\output'); run('matlab_compare_histeq.m');"
+MATLAB_VERSION=23.2.0.2365128 (R2023b)
+INPUT_SIZE=512 x 512
+FUNCTION=histeq (Image Processing Toolbox)
+OUTPUT_CLASS=uint8
+MAE_VS_PYTHON=29.384758
+MAX_ABS_DIFF_VS_PYTHON=49
+Exit code: 0

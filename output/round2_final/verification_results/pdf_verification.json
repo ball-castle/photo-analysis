@@ -1,0 +1,20 @@
+{
+  "status": "PDF_WORD_CONTENT_PASS",
+  "page_count": 23,
+  "a4_media_boxes": true,
+  "checks": {
+    "page_count_23": true,
+    "all_pages_A4": true,
+    "page1_objectives": true,
+    "page1_core_code": true,
+    "page2_measured_conflict": true,
+    "matlab_mapping_explained": true,
+    "original_bottom_remark": true,
+    "appendix_sources": true,
+    "no_textless_pages": true
+  },
+  "bytes": 1250985,
+  "submission_attachment": "第一次上机实验报告_数学jd2401_蔡斌_1024001338.pdf",
+  "personalized_front_page_rechecked": true,
+  "all_23_pages_nonempty": true
+}

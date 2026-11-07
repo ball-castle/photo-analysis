@@ -1,0 +1,5 @@
+numpy==2.0.2
+Pillow==11.2.1
+matplotlib==3.9.4
+scikit-image==0.24.0
+pytest==8.4.2

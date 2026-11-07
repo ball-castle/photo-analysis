@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<title>差异分析与纠正</title><style>
+* { box-sizing: border-box; }
+html, body { margin:0; background:white; }
+body { font-family:"Microsoft YaHei",sans-serif; color:#1f2730; }
+.card { width:1200px; border:1px solid #bac4ce; background:white; }
+.head { display:flex; justify-content:space-between; padding:15px 24px;
+        border-bottom:1px solid #d6dde4; background:#f2f5f8; }
+.title { font-size:24px; font-weight:600; }
+.meta { font-size:20px; color:#4b5e70; }
+.exchange { padding:13px 24px 0; }
+.label { color:#38546b; font-size:20px; font-weight:600; margin:0 0 3px; }
+p { font-size:24px; line-height:1.43; margin:0 0 9px; text-align:justify; }
+code { font-family:Consolas,monospace; font-size:23px; }
+.foot { padding:10px 24px 13px; color:#66717b; font-size:18px; }
+</style>
+<article class="card">
+<div class="head"><span class="title">02　差异分析与纠正</span>
+<span class="meta">AI 问答摘录 · 第 3 轮</span></div>
+<div class="exchange"><div class="label">提问</div><p>该改法已实际运行：LEN=9时0°、45°、90°尺寸分别1×9、7×7、9×1，均与内置同尺寸；但三个isequal仍均为0，45°最大逐元素误差0.057428348770532045，0°/90°为2.6367796834847468e-16。 […] 请重新核对，明确正确分母，并说明为何同尺寸仍不等于相同离散核。</p>
+<div class="label">AI · Luna</div><p><code>t</code>的正确分母是 <code>p1(k)-p0(k)</code>：<code>d</code>仍为单位向量，端点差对应长度 <code>len</code>，由此把线段投影参数归一到[0,1]。 […] 方格相交长度积分按穿格长度赋权，R2023b则按像素中心垂距和端点修正规则赋权后镜像归一。</p></div>
+<div class="foot">实际问答摘录 · 省略处以 […] 标示；实测数据见报告第 2 节</div></article></html>

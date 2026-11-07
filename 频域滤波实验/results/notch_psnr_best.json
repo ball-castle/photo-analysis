@@ -1,0 +1,26 @@
+[
+  {
+    "image": "7.PNG",
+    "best_D0_bins": 5.0,
+    "best_PSNR_dB": 51.16865922938791,
+    "reference": "provided input image before synthetic noise injection"
+  },
+  {
+    "image": "10.jpg",
+    "best_D0_bins": 3.0,
+    "best_PSNR_dB": 45.109436513634485,
+    "reference": "provided input image before synthetic noise injection"
+  },
+  {
+    "image": "11.jpg",
+    "best_D0_bins": 3.0,
+    "best_PSNR_dB": 45.97682003281716,
+    "reference": "provided input image before synthetic noise injection"
+  },
+  {
+    "image": "16.jpg",
+    "best_D0_bins": 5.0,
+    "best_PSNR_dB": 53.13329125069952,
+    "reference": "provided input image before synthetic noise injection"
+  }
+]

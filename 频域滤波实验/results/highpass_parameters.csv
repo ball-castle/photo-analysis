@@ -1,0 +1,13 @@
+﻿filter,D0_bins,order,response_min,response_max,display_mapping
+ideal,8.0,n/a,-152.9635488031642,194.15818112364673,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+ideal,16.0,n/a,-168.104869891871,185.69687452238662,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+ideal,32.0,n/a,-154.57695547694067,187.35924209470005,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+ideal,64.0,n/a,-122.90006106027568,126.9883057758567,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+butterworth,8.0,2,-140.24308226747092,182.96397618574795,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+butterworth,16.0,2,-138.04210729897036,175.01256549090843,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+butterworth,32.0,2,-141.14199185374622,160.82588666984032,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+butterworth,64.0,2,-106.4802112202,103.89939466670545,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+gaussian,8.0,n/a,-135.72072026687874,176.35594488399764,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+gaussian,16.0,n/a,-126.95622251017896,171.21648616194736,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+gaussian,32.0,n/a,-132.878228514738,146.10724994893783,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max
+gaussian,64.0,n/a,-87.38269922928836,85.1193040195311,1st-99th percentile linear stretch for PNG; CSV stores only raw response min/max

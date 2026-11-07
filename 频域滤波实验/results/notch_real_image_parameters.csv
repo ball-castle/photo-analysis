@@ -1,0 +1,5 @@
+﻿image,height,width,selected_peak_pairs_v_u,D0_bins,filter,assessment,source_min,source_max,filtered_min_before_clip,filtered_max_before_clip
+7.PNG,275,272,"[[13, 22], [25, -44]]",3.0,Gaussian notch reject,visual/spectral only; no clean reference supplied,0.0,255.0,10.01162557127543,274.75859319562915
+10.jpg,471,640,"[[61, -83], [62, 82], [2, 165], [123, -1], [1, 125]]",8.0,Gaussian notch reject,visual/spectral only; no clean reference supplied,0.0,255.0,-55.41910938449591,310.4036168075259
+11.jpg,164,220,"[[25, 0], [51, 0], [75, 0]]",5.0,Gaussian notch reject,visual/spectral only; no clean reference supplied,0.0,255.0,-17.63302975561771,285.61461605342583
+16.jpg,512,512,"[[0, 16], [5, 5]]",3.0,Gaussian notch reject,visual/spectral only; no clean reference supplied,0.0,255.0,24.645191297078583,211.1419447167433

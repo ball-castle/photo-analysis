@@ -1,0 +1,3 @@
+LEN=9 THETA=0: corrected=[1 9], reference=[1 9], isequal=0, max_abs_error=2.6367796834847468e-16
+LEN=9 THETA=45: corrected=[7 7], reference=[7 7], isequal=0, max_abs_error=0.057428348770532045
+LEN=9 THETA=90: corrected=[9 1], reference=[9 1], isequal=0, max_abs_error=2.6367796834847468e-16

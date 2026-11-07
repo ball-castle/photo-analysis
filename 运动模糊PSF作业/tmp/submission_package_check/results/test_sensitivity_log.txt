@@ -1,0 +1,5 @@
+wrong_half_length: DETECTED at LEN=9 THETA=0
+missing_flip: DETECTED at LEN=9 THETA=30
+missing_eps: DETECTED at LEN=9 THETA=0
+degree_trig: DETECTED at LEN=9 THETA=30
+All 4 plausible faults were detected.

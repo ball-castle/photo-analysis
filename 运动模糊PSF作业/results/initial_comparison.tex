@@ -1,0 +1,20 @@
+初版采用 $p(t)=p_0+td$、$0\le t\le1$，而 $d$ 是单位向量，
+对应的轨迹长度为 1 像素。将裁剪参数的分母由 \texttt{d(k)} 改为
+\texttt{p1(k)-p0(k)} 后，参数区间覆盖端点之间的整条线段。
+
+\begin{table}[H]\centering\small
+\caption{\texttt{LEN=9} 时的参数化修正结果}\label{tab:initial}
+\begin{tabularx}{\linewidth}{YYYYr}
+\toprule
+\rowcolor{Tint}\thead{角度} & \thead{初版尺寸} & \thead{修正后尺寸} & \thead{内置尺寸} & \thead{修正后最大误差}\\
+\midrule
+$0^\circ$ & $1\times1$ & $1\times9$ & $1\times9$ & $2.637\times10^{-16}$\\
+$45^\circ$ & $2\times2$ & $7\times7$ & $7\times7$ & $5.743\times10^{-2}$\\
+$90^\circ$ & $1\times1$ & $9\times1$ & $9\times1$ & $2.637\times10^{-16}$\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+表~\ref{tab:initial} 中，参数化修正恢复了矩阵尺寸；$45^\circ$ 下的权重误差为 $0.05743$。
+这一差异来自离散方式：初版按方格内轨迹长度积分，目标核按像素中心距离和端点位置赋权。
+最终函数据此采用第 1 节的半核构造。

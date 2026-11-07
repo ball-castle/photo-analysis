@@ -1,0 +1,1295 @@
+      武汉理工大学数统学院数学系课程实验报告
+
+课 程 名 称：数字图像处理
+
+
+班级   数学 jd2401                        日     期                                   成绩评定
+
+
+姓名   蔡斌                               实验室                                       老师签名
+
+实验
+     实验一 图像增强的空域方法实现
+名称
+所用   Python 3.9.7、NumPy、Pillow、Matplotlib；MATLAB R2023b（仅均衡化对照）
+软件
+
+实
+     目的：理解空域图像增强的原理与实现过程。
+验
+     完成：直方图计算、均衡化及规定化。
+目
+     比较：Roberts、Sobel、Prewitt、Laplacian 锐化。
+的
+     生成：高斯噪声、椒盐噪声和混合噪声。
+及
+     比较均值、中值、高斯、双边、引导与 NLM 六种滤波。
+内
+     以 PSNR、SSIM、运行时间与视觉效果进行评价。
+容
+
+
+     （按第一次上机实验的内容逐一填写）
+     直方图：H(k)=n_k，p(k)=n_k/(MN)，CDF(k)=Σ_{j≤k}p(j)。
+     均衡化：s=round[255(CDF−CDFmin)/(1−CDFmin)]，将有效
+     CDF 线性映射至[0,255]；规定化查找首个 CDF_target≥CDF_source。
+实
+     本次目标为 0.52·N(65,13²)+0.48·N(185,13²)（主程序传参）
+                                               。
+     锐化：Roberts 为 2×2 交叉差分；Sobel/Prewitt 用 3×3 梯度核，
+验
+     以 E=√(Gx²+Gy²)取幅值。Laplacian 采用中心为正的四邻域核。
+     正中心核锐化用 I+L；保留浮点符号响应，末端 clip 至[0,255]。
+原
+     平滑：均值为归一化加权和；中值取窗口次序统计量中位数。
+     高斯权重 Gσ∝exp[−(x²+y²)/(2σ²)]，使用归一化可分离核。
+理
+     双边权重结合空间距离和灰度差；引导滤波拟合局部线性 q=aI+b。
+     NLM 按补丁距离加权，w=exp[−max(d²−2σn²,0)/h²]。
+步
+     步骤：读入两张灰度图并统一 512×512，记录输入统计。
+     按固定种子生成高斯、椒盐与混合噪声；执行指导书任务 1、3、4。
+ 骤
+     保存图像、参数敏感性表及运行时间；用干净参考计算 PSNR/SSIM。
+ 、
+     人脸美容平滑无无瑕疵参考，只作视觉分析。
+核心
+                          ：
+     直方图均衡化代码（histogram.py）
+代码
+     lut = np.clip(np.rint((cdf - cdf_min) * (255.0 / denominator)), 0, 255)
+     return lut[source].astype(np.uint8)
+     Laplacian 叠加代码（spatial.py）
+                              ：
+     "overlay": np.clip(np.rint(source + response), 0, 255).astype(np.uint8),
+     均衡化：均值 42.14→103.25，标准差 48.98→82.54，P99 由 180 升至 252。
+     暗部层次展开、亮部变强；均值/分布变化不能单独说明视觉更优。
+     规定化：均值 125.02、标准差 59.10、P1–P99=61–212，熵 5.486 bit。
+     Roberts、Sobel、Prewitt、Laplacian 均增强边缘；Sobel 响应较连续。
+     Prewitt 权重均匀；Roberts 定位细但易受噪声影响。
+     Laplacian 中心正核 I+L 保留亮暗方向；|L|和拉伸仅作响应图显示。
+     噪声：高斯σ=18，椒盐总密度 0.04，混合σ=12/密度 0.02。
+     方法性质：均值/高斯平滑随机噪声；中值更能去除椒盐脉冲。
+     边缘保持：双边按空间和灰度加权；引导、NLM 留较多邻近结构。
+     以下指标用同一 512×512 混合噪声和加噪前图作参考。
+     均值 5×5：30.497dB/0.7671/0.0087s（六法组最快）
+                                         。
+     中值 5×5：32.494dB/0.8502/0.0855s（该组 PSNR、SSIM 均最高）
+                                                    。
+     高斯 7×7：31.017/0.8004/0.0103s；双边：21.309/0.5881/0.2569s。
+ 实
+     引导：26.298/0.6404/0.0354s；NLM：26.730/0.7006/0.4930s。
+     窗口组中值 5×5 最高 PSNR32.494，计时 0.0905s；综合表另测 0.0855s。
+ 验
+     两值来自同次主程序运行中的不同计时调用；中值 7×7 SSIM 最高 0.8661。
+     但其 PSNR31.836、耗时 0.1582s；
+                             “最佳”需限定评价指标。
+ 结
+     参数敏感性中σr、ε、h 增大提升本混合噪声指标；更平滑会损纹理。
+     NLM 搜索窗 5×5→11×11（h=22）耗时 0.261→1.425s。
+ 果
+     完成任务 1、3、4；美容平滑无真值，只作视觉评价；结论限于单图和本轮噪声。
+
+ 及
+
+ 分
+
+ 析
+
+
+
+
+                                                                         ）
+                                                              （写不完时，可另附稿纸。
+
+                   。
+备注：不交此报告者，本次实验为“不合格”
+           实验一 图像增强的空域方法实现（附页）
+实验条件、数据来源与复现设置
+软件：Python 3.9.7、NumPy 2.0.2、Pillow 11.2.1、Matplotlib 3.9.4、scikit-image 0.24.0
+（仅用于 PSNR/SSIM）  、pytest 8.4.2；另用 MATLAB R2023b Image Processing Toolbox 的
+histeq 作单独对照。操作系统为 Windows 10。所有实验图均为 512×512 灰度图，随机种
+子为 20261008。
+图像 1：Alex Guillaume 摄影，Unsplash《An older woman with wrinkles on her face》     ，
+原图 3000×3000，暗调皱纹人像，用于直方图实验。来源：
+https://unsplash.com/photos/an-older-woman-with-wrinkles-on-her-face-mSh9yhcJk1
+A。
+图像 2：Robert Piosik 摄影，Unsplash 灰度女性面部人像，原图 3000×2000，含清晰雀
+斑，用于边缘与滤波实验。先中心裁剪为 2000×2000，再缩放为 512×512，不拉伸。来源：
+https://unsplash.com/es/fotos/foto-en-escala-de-grises-de-la-cara-de-la-mujer-b
+JR4cvkfxf0。许可：https://unsplash.com/license。
+任务 1：直方图均衡化与规定化
+灰度直方图 H(k)=n_k，相对频率 p(k)=n_k/(MN)，累积分布 CDF(k)=Σ_{j≤k}p(j)。离散
+均衡化按 s_k=round(255·(CDF(k)-CDF_min)/(1-CDF_min)) 映射；规定化先求源、目标
+CDF，再将源 CDF 映射到第一个不小于该概率的目标灰度级。实际主程序显式传入
+peak1=65、peak2=185、sigma=13、weight1=0.52，覆盖函数默认 sigma=12、weight1=0.5；
+目标为归一化的 0.52·N(65,13²)+0.48·N(185,13²)。
+      图像             均值        标准差          P1–P99        熵(bit)
+     暗调原图           42.14       48.98       0–180          6.252
+     均衡化            103.25      82.54       0–252          6.125
+     规定化            125.02      59.10       61–212         5.486
+
+
+
+                  图 1 暗调原图、手写均衡化、双峰规定化及灰度直方图
+任务 1 结果分析与 MATLAB 对照
+暗调原图灰度均值为 42.14，标准差为 48.98，P99 为 180。均衡化后均值为 103.25、标
+准差为 82.54、P99 为 252；面部暗部层次被展开，但脸部高光明显变亮，背景与皮肤纹理
+有过增强现象。
+规定化后均值为 125.02、标准差为 59.10。双峰目标把大量暗像素映射到约 61 的灰度附
+近，暗背景被抬亮；面部过渡较均衡，但灰度层级更集中，局部对比度下降。目标分布决定
+了面部亮度和肤色层次，不能仅凭峰值更多判断视觉质量。
+MATLAB R2023b histeq(I) 默认匹配 64 档近似平坦的目标直方图。对同一 512×512 uint8
+输入，默认结果相对 Python 的 MAE=29.385、最大差=49；histeq(I,256)为 MAE=29.415、最
+大差=51。两张 MATLAB 结果之间 MAE 仅 1.184；Python 输出可由当前 CDF_min 减除与重标定
+公式精确重建（MAE=0.000）       。MATLAB 按目标直方图近似匹配选择单调映射，Python 则作
+CDF_min 减除和线性重标定；256 档结果与直接全 CDF 映射仍差 1.376。故 64 档量化不是约
+29.4 MAE 的主因，输入也一致。
+      图 2 同一输入下 Python CDF_min 均衡化与 MATLAB 默认 64 档、256 档 histeq 对照
+
+
+
+
+任务 3：传统边缘锐化
+Roberts 使用 2×2 交叉差分核 Gx=[[1,0],[0,-1]]、Gy=[[0,1],[-1,0]]；Sobel 的水平
+核为[[-1,0,1],[-2,0,2],[-1,0,1]]，垂直核为其转置方向；Prewitt 将中间行/列权重改
+为 1。边缘幅值 E=√(Gx²+Gy²)。代码以 E−mean3×3(E) 作为局部细节掩膜，再计算
+clip(I+0.2·D,0,255)，同时输出共同比例的边缘响应。
+Laplacian 使用中心为正的四邻域核 L=[[0,-1,0],[-1,4,-1],[0,-1,0]]。亮点中心的响应
+为正、相邻暗位置为负；因此锐化方向为 I+L。若采用中心为负的相反符号核，则应使用
+I−L。
+图 3 Roberts、Sobel、Prewitt、Laplacian 响应（各响应采用同一稳健上限）及 Laplacian 叠加结果
+
+
+
+
+四种算子都能突出眼部、发丝、雀斑和轮廓。Sobel 对中心邻域加权，边缘更连续但响应也
+更强；Prewitt 权重均匀；Roberts 核小，定位细而对噪声更敏感。边缘锐化只是将局部高
+频掩膜叠加回原图，幅度过大会放大噪声。
+Laplacian 负值处理比较
+本实验对同一有符号响应 L 分别采用 |L|、线性拉伸 255·(L−Lmin)/(Lmax−Lmin)，以及
+clip(I+L,0,255)。绝对值保留边缘强弱但丢失正负方向；线性拉伸能同时显示两种极性，
+却把零响应映射到中间灰度，结果是边缘图而非保持原亮度的增强图；原图叠加保留低频外
+观，并用正负响应提升亮暗边界对比。
+             图 4 Laplacian 绝对值、线性拉伸和原图叠加截断对比
+
+
+
+
+本例中原图叠加最符合增强细节的目标，因为它保留原图结构并叠加带符号的高频变化。截
+断到[0,255]会在极亮或极暗处损失少量响应；绝对值法和线性拉伸会改变亮度语义，不适
+合作为原图增强结果直接替代。
+任务 4：噪声模型与传统平滑
+以雀斑人像为无噪声参考 f。高斯噪声为 g=f+n，n~N(0,σ²)，本次 σ=18；椒盐噪声按总
+密度 0.04 随机置 0 或 255；混合噪声先加 σ=12 高斯噪声，再以总密度 0.02 加入椒盐点。
+各随机过程使用固定种子 20261008（子过程使用确定性偏移）     ，便于复现。
+                 图 5 干净参考图与三类固定种子噪声
+
+
+
+
+均值滤波 g(x,y)=Σw(i,j)f(x−i,y−j)/Σw，均匀核为所有 w=1；加权核突出中心邻域。
+中值滤波取窗口样本中位数，适合椒盐脉冲。高斯滤波权重 Gσ(i,j)∝exp(−(i²+j²)/(2
+σ²))，本实现按两个一维核分离计算。边界使用反射填充，数组先转为 float，最终显示
+时才裁剪回[0,255]。
+传统滤波窗口参数实验
+  方法               参数              时间(s)     PSNR(dB)     SSIM
+
+  均值              窗口 3×3           0.0055     28.778     0.6450
+
+  均值              窗口 5×5           0.0052     30.497     0.7671
+
+  均值              窗口 7×7           0.0053     30.446     0.8177
+
+ 加权均值         窗口 3×3 权重 1/2/1      0.0072     28.147     0.6207
+
+  中值              窗口 3×3           0.0438     32.236     0.7661
+
+  中值              窗口 5×5           0.0905     32.494     0.8502
+
+  中值              窗口 7×7           0.1582     31.836     0.8661
+
+  高斯            窗口 3 σ=0.8         0.0066     27.937     0.6120
+
+  高斯            窗口 5 σ=1.2         0.0087     30.323     0.7349
+
+  高斯            窗口 7 σ=1.6         0.0105     31.017     0.8004
+
+
+
+
+                  图 6 3×3、5×5、7×7 与加权模板的视觉敏感性
+
+
+
+
+评价对象均为混合噪声结果，PSNR/SSIM 参考加噪前的原始雀斑图。窗口敏感性组内，中值
+5×5 取得最高 PSNR 32.494 dB，SSIM 为 0.8502；中值 7×7 取得最高 SSIM 0.8661，但 PSNR
+降至 31.836 dB、耗时升至 0.1582 s。窗口表中值 5×5 单次计时为 0.0905 s；综合表对相
+同输入和参数另作一次单次调用，计时 0.0855 s（表格四舍五入为 0.085 s）              。两项来自同
+一主程序运行中的不同计时调用，不是不同噪声批次，也不是笔误。均值/高斯扩大窗口会
+加强平滑并软化边缘；3×3 加权均值在本次混合噪声下仍有脉冲残留。
+现代边缘保持滤波与参数敏感性
+双边滤波 w(p,q)=exp(−||p−q||²/(2σs²))·exp(−(I(p)−I(q))²/(2σr²))，按空间距离
+和灰度差共同加权。引导滤波在局部窗口拟合 q=aI+b，a=cov(I,p)/(var(I)+ε)，
+b=mean(p)−a·mean(I)，再平均系数。NLM 以补丁距离 d²(p,q) 计算 w=exp(−max(d²−2
+σn²,0)/h²)，输出为加权平均；本实现逐位移矩阵计算补丁均方差并用积分图盒式均值加
+速，没有调用现成 NLM。
+ 方法                 参数            时间(s)     PSNR(dB)    SSIM
+
+ 双边                σr=15          0.235      20.952    0.4680
+
+ 双边                σr=25          0.237      21.167    0.5530
+
+ 双边                σr=40          0.233      21.309    0.5881
+
+ 引导                ε=256          0.035      22.084    0.4745
+
+ 引导                ε=900          0.035      24.623    0.5914
+
+ 引导               ε=1600          0.037      26.298    0.6404
+
+  NLM         h=14, search=7×7    0.500      21.079    0.5541
+
+  NLM         h=22, search=7×7    0.505      22.849    0.6026
+
+  NLM         h=30, search=7×7    0.505      26.730    0.7006
+
+  NLM         h=22, search=5×5    0.261      21.302    0.5623
+
+  NLM        h=22, search=11×11   1.425      24.410    0.6494
+
+
+
+
+                  图 7 双边 σr、引导 ε、NLM h 与搜索窗敏感性
+
+
+
+
+本次 σr=15→40、ε=256→1600、h=14→30 时 PSNR/SSIM 均上升，表示对当前混合噪声
+更强的平滑提高了与受控干净参考的相似度。NLM 搜索窗从 5×5 扩大到 11×11，h=22 时耗
+时由实测 0.261 s 增至 1.425 s，指标也变化；成本随搜索位移数增加。所用 NLM 通过每个
+搜索位移的积分图距离计算，将逐像素 Python 循环改为矩阵化运算，但仍比简单盒式或可
+分离滤波耗时。
+六种滤波算法综合对比
+下表所有指标都来自同一张 512×512 混合噪声图；PSNR/SSIM 以加噪前人像作为干净参考。
+耗时为本机 perf_counter 单次实测，不是理论值。复杂度按像素数 N、核宽 k、NLM 搜索
+边长 s 表示；引导与均值使用积分图盒均值。
+指标定义：MSE=(1/MN)Σ(I−K)²，PSNR=10log₁₀(255²/MSE)；SSIM=((2μIμK+C₁)(2σ
+IK+C₂))/((μI²+μK²+C₁)(σI²+σK²+C₂))，均值、方差和协方差在局部窗口计算，C₁、C₂
+用于稳定分母。
+ 方法             参数               时间(s)    PSNR(dB)   SSIM              理论复杂度
+
+ 均值             5×5               0.009    30.497    0.7671     O(N) integral box filter
+
+ 中值             5×5               0.085    32.494    0.8502   O(N k²) neighborhood selection
+
+ 高斯         7×7, σ=1.6            0.010    31.017    0.8004         O(N k) separable
+
+ 双边      r=3, σs=2, σr=40         0.257    21.309    0.5881              O(N k²)
+
+ 引导         r=3, ε=1600           0.035    26.298    0.6404     O(N) integral box filters
+
+       patch=5×5, search=7×7,
+ NLM                              0.493    26.730    0.7006   O(N s²) search displacements
+                h=30
+
+
+
+                                图 8 六种滤波结果（统一灰度范围）
+
+
+
+
+在这六种配置中，中值 5×5 的 PSNR 最高 32.494 dB、SSIM 最高 0.8502；均值 5×5 最快，
+实测 0.0087 s。高斯 7×7 在抑噪与结构保留间折中。双边在本混合噪声组内指标较低，强
+脉冲不符合局部灰度相似假设；引导和 NLM 随ε/h 增大而改善，但纹理也更平滑。窗口敏
+感性组的最高 SSIM 来自中值 7×7（0.8661），不应与本六配置组混为一谈。排序依赖噪声、
+参数和参考图，不代表通用优劣。
+有参考去噪与人脸平滑的区别
+加噪实验保留了真实拍摄的人像作为人工加噪前的像素参考，因此该实验的 PSNR/SSIM 衡
+量恢复到输入照片的程度。美容平滑实验直接处理带雀斑的人像；原图包含真实雀斑和皮肤
+纹理，并非无瑕疵真值，所以该实验不报告 PSNR/SSIM。
+           图 9 对真实雀斑人像进行六种平滑的无参考视觉比较
+
+
+
+
+             图 10 混合噪声去噪的 128×128 局部对比
+
+
+
+
+均值与高斯会一起削弱肤色细纹和雀斑；中值更能抑制孤立点，但窗口变大也会损失细纹；
+双边、引导与 NLM 在边缘附近保留较多结构，参数过大时同样会让斑点和纹理变淡。视觉
+上更光滑不等于恢复了真实无瑕疵皮肤。
+实验总结：完成指导书任务 1、3、4，实现直方图映射、边缘锐化与多类平滑；效果受噪声
+和参数影响，评价需结合视觉质量与参考指标。美容平滑无无瑕疵真值，只作视觉评价。
+附录 A 核心运行源码：dip_lab/histogram.py
+"""Hand-written grayscale histogram operations for uint8 images."""
+
+
+
+from typing import Union
+
+
+
+import numpy as np
+
+
+
+
+ArrayLike = Union[np.ndarray, list]
+
+
+
+
+def _gray_u8(image: ArrayLike) -> np.ndarray:
+
+   array = np.asarray(image)
+
+   if array.ndim != 2:
+
+       raise ValueError("Expected a two-dimensional grayscale image")
+
+   if not np.isfinite(array).all():
+
+       raise ValueError("Image values must be finite")
+
+   return np.clip(np.rint(array), 0, 255).astype(np.uint8)
+
+
+
+
+def gray_histogram(image: ArrayLike) -> np.ndarray:
+
+   """Count the occurrences of gray levels 0..255 without image libraries."""
+
+   pixels = _gray_u8(image).ravel()
+
+   return np.bincount(pixels, minlength=256).astype(np.int64, copy=False)
+
+
+
+
+def equalize_histogram(image: ArrayLike) -> np.ndarray:
+
+   """Apply discrete CDF equalization, mapping the first occupied CDF to zero."""
+
+   source = _gray_u8(image)
+
+   counts = gray_histogram(source)
+
+   occupied = np.flatnonzero(counts)
+
+   if occupied.size <= 1:
+
+       return source.copy()
+
+
+
+   cdf = counts.cumsum(dtype=np.float64) / float(source.size)
+
+   cdf_min = cdf[occupied[0]]
+
+   denominator = 1.0 - cdf_min
+
+   if denominator <= np.finfo(np.float64).eps:
+
+       return source.copy()
+
+   lut = np.clip(np.rint((cdf - cdf_min) * (255.0 / denominator)), 0, 255)
+
+   return lut[source].astype(np.uint8)
+
+
+
+
+def _target_probability(target: ArrayLike) -> np.ndarray:
+
+   values = np.asarray(target)
+   if values.ndim == 2:
+
+       counts = gray_histogram(values)
+
+       return counts.astype(np.float64) / max(float(counts.sum()), 1.0)
+
+   if values.ndim != 1 or values.size != 256:
+
+       raise ValueError("Target must be a grayscale image or a 256-entry histogram")
+
+   probability = values.astype(np.float64)
+
+   if not np.isfinite(probability).all() or np.any(probability < 0):
+
+       raise ValueError("Target histogram must contain finite, non-negative values")
+
+   total = float(probability.sum())
+
+   if total <= 0:
+
+       raise ValueError("Target histogram must have positive mass")
+
+   return probability / total
+
+
+
+
+def match_histogram(image: ArrayLike, target: ArrayLike) -> np.ndarray:
+
+   """Map source CDF values to the closest target CDF gray level."""
+
+   source = _gray_u8(image)
+
+   source_counts = gray_histogram(source)
+
+   if np.count_nonzero(source_counts) <= 1:
+
+       return source.copy()
+
+
+
+   source_cdf = source_counts.cumsum(dtype=np.float64) / float(source.size)
+
+   target_cdf = np.cumsum(_target_probability(target), dtype=np.float64)
+
+   target_cdf[-1] = 1.0
+
+   lut = np.searchsorted(target_cdf, source_cdf, side="left")
+
+   lut = np.clip(lut, 0, 255).astype(np.uint8)
+
+   return lut[source]
+
+
+
+
+def make_bimodal_target(
+
+   peak1: float = 65.0,
+
+   peak2: float = 185.0,
+
+   sigma: float = 12.0,
+
+   weight1: float = 0.5,
+
+) -> np.ndarray:
+
+   """Build a normalized two-Gaussian target distribution over gray levels."""
+
+   if sigma <= 0:
+
+       raise ValueError("sigma must be positive")
+
+   if not 0.0 <= weight1 <= 1.0:
+
+       raise ValueError("weight1 must be in [0, 1]")
+
+   levels = np.arange(256, dtype=np.float64)
+
+   component1 = np.exp(-0.5 * ((levels - peak1) / sigma) ** 2)
+
+   component2 = np.exp(-0.5 * ((levels - peak2) / sigma) ** 2)
+
+   target = weight1 * component1 + (1.0 - weight1) * component2
+
+   return target / target.sum()
+附录 A 核心运行源码：dip_lab/spatial.py
+"""Manual spatial-domain filters and classical edge operators."""
+
+
+
+from typing import Optional
+
+
+
+import numpy as np
+
+
+
+
+def _float_gray(image: np.ndarray) -> np.ndarray:
+
+   array = np.asarray(image, dtype=np.float64)
+
+   if array.ndim != 2:
+
+       raise ValueError("Expected a two-dimensional grayscale image")
+
+   if not np.isfinite(array).all():
+
+       raise ValueError("Image values must be finite")
+
+   return array
+
+
+
+
+def _check_odd_size(size: int) -> int:
+
+   size = int(size)
+
+   if size < 1 or size % 2 == 0:
+
+       raise ValueError("Window size must be a positive odd integer")
+
+   return size
+
+
+
+
+def _pad_mode(image: np.ndarray) -> str:
+
+   return "symmetric" if min(image.shape) == 1 else "reflect"
+
+
+
+
+def correlate2d(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+
+   """Correlate a grayscale image with an odd-sized kernel using NumPy only."""
+
+   source = _float_gray(image)
+
+   weights = np.asarray(kernel, dtype=np.float64)
+
+   if weights.ndim != 2 or any(size % 2 == 0 for size in weights.shape):
+
+       raise ValueError("Kernel dimensions must be odd")
+
+   row_radius, col_radius = weights.shape[0] // 2, weights.shape[1] // 2
+
+   padded = np.pad(
+
+       source,
+
+       ((row_radius, row_radius), (col_radius, col_radius)),
+
+       mode=_pad_mode(source),
+
+   )
+
+   result = np.zeros_like(source)
+
+   height, width = source.shape
+
+   for row in range(weights.shape[0]):
+
+       for col in range(weights.shape[1]):
+
+          result += weights[row, col] * padded[row : row + height, col : col + width]
+   return result
+
+
+
+
+def box_filter(image: np.ndarray, size: int) -> np.ndarray:
+
+   """Return local box means using an integral image and reflected borders."""
+
+   source = _float_gray(image)
+
+   size = _check_odd_size(size)
+
+   radius = size // 2
+
+   padded = np.pad(source, ((radius, radius), (radius, radius)), mode=_pad_mode(source))
+
+   integral = np.pad(padded.cumsum(axis=0).cumsum(axis=1), ((1, 0), (1, 0)))
+
+   height, width = source.shape
+
+   bottom_right = integral[size : size + height, size : size + width]
+
+   top_right = integral[:height, size : size + width]
+
+   bottom_left = integral[size : size + height, :width]
+
+   top_left = integral[:height, :width]
+
+   return (bottom_right - top_right - bottom_left + top_left) / float(size * size)
+
+
+
+
+def mean_filter(
+
+   image: np.ndarray,
+
+   size: int = 3,
+
+   weights: Optional[np.ndarray] = None,
+
+) -> np.ndarray:
+
+   """Apply a uniform or caller-supplied normalized spatial mean kernel."""
+
+   source = _float_gray(image)
+
+   if weights is None:
+
+       return box_filter(source, size)
+
+   kernel = np.asarray(weights, dtype=np.float64)
+
+   if kernel.ndim != 2 or any(dimension % 2 == 0 for dimension in kernel.shape):
+
+       raise ValueError("weights must be a two-dimensional odd-sized matrix")
+
+   total = float(kernel.sum())
+
+   if not np.isfinite(kernel).all() or abs(total) <= np.finfo(np.float64).eps:
+
+       raise ValueError("weights must have a finite, non-zero sum")
+
+   return correlate2d(source, kernel / total)
+
+
+
+
+def median_filter(image: np.ndarray, size: int = 3) -> np.ndarray:
+
+   """Apply a sliding-window median with reflected borders."""
+
+   source = _float_gray(image)
+
+   size = _check_odd_size(size)
+
+   radius = size // 2
+
+   padded = np.pad(source, ((radius, radius), (radius, radius)), mode=_pad_mode(source))
+
+   windows = np.lib.stride_tricks.sliding_window_view(padded, (size, size))
+
+   return np.median(windows, axis=(-2, -1))
+def _filter_axis(image: np.ndarray, kernel: np.ndarray, axis: int) -> np.ndarray:
+
+   radius = kernel.size // 2
+
+   pad_width = ((radius, radius), (0, 0)) if axis == 0 else ((0, 0), (radius, radius))
+
+   padded = np.pad(image, pad_width, mode=_pad_mode(image))
+
+   result = np.zeros_like(image)
+
+   height, width = image.shape
+
+   for index, weight in enumerate(kernel):
+
+       if axis == 0:
+
+           result += weight * padded[index : index + height, :]
+
+       else:
+
+           result += weight * padded[:, index : index + width]
+
+   return result
+
+
+
+
+def gaussian_filter(image: np.ndarray, size: int = 5, sigma: float = 1.0) -> np.ndarray:
+
+   """Apply a normalized separable Gaussian kernel without a library filter."""
+
+   source = _float_gray(image)
+
+   size = _check_odd_size(size)
+
+   if sigma <= 0:
+
+       raise ValueError("sigma must be positive")
+
+   coordinates = np.arange(-(size // 2), size // 2 + 1, dtype=np.float64)
+
+   kernel = np.exp(-(coordinates**2) / (2.0 * sigma**2))
+
+   kernel /= kernel.sum()
+
+   return _filter_axis(_filter_axis(source, kernel, axis=1), kernel, axis=0)
+
+
+
+
+def roberts_components(image: np.ndarray) -> tuple:
+
+   """Return two signed Roberts cross responses using reflected bottom/right edges."""
+
+   source = _float_gray(image)
+
+   height, width = source.shape
+
+   padded = np.pad(source, ((0, 1), (0, 1)), mode=_pad_mode(source))
+
+   gx = padded[:height, :width] - padded[1 : height + 1, 1 : width + 1]
+
+   gy = padded[:height, 1 : width + 1] - padded[1 : height + 1, :width]
+
+   return gx, gy
+
+
+
+
+def _gradient_components(image: np.ndarray, kind: str) -> tuple:
+
+   if kind == "sobel":
+
+       horizontal = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]], dtype=np.float64)
+
+       vertical = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]], dtype=np.float64)
+
+   elif kind == "prewitt":
+
+       horizontal = np.array([[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]], dtype=np.float64)
+
+       vertical = np.array([[-1, -1, -1], [0, 0, 0], [1, 1, 1]], dtype=np.float64)
+
+   else:
+       raise ValueError("kind must be 'sobel' or 'prewitt'")
+
+   return correlate2d(image, horizontal), correlate2d(image, vertical)
+
+
+
+
+def _magnitude(components: tuple) -> np.ndarray:
+
+   gx, gy = components
+
+   return np.hypot(gx, gy)
+
+
+
+
+def roberts_response(image: np.ndarray) -> np.ndarray:
+
+   return _magnitude(roberts_components(image))
+
+
+
+
+def sobel_components(image: np.ndarray) -> tuple:
+
+   return _gradient_components(image, "sobel")
+
+
+
+
+def sobel_response(image: np.ndarray) -> np.ndarray:
+
+   return _magnitude(sobel_components(image))
+
+
+
+
+def prewitt_components(image: np.ndarray) -> tuple:
+
+   return _gradient_components(image, "prewitt")
+
+
+
+
+def prewitt_response(image: np.ndarray) -> np.ndarray:
+
+   return _magnitude(prewitt_components(image))
+
+
+
+
+def laplacian_response(image: np.ndarray) -> np.ndarray:
+
+   """Signed four-neighbor Laplacian with a positive center coefficient."""
+
+   kernel = np.array([[0, -1, 0], [-1, 4, -1], [0, -1, 0]], dtype=np.float64)
+
+   return correlate2d(image, kernel)
+
+
+
+
+def stretch_to_u8(image: np.ndarray) -> np.ndarray:
+
+   """Linearly stretch finite values to [0, 255], returning zeros if constant."""
+
+   source = _float_gray(image)
+
+   low, high = float(source.min()), float(source.max())
+
+   if high - low <= np.finfo(np.float64).eps:
+
+       return np.zeros(source.shape, dtype=np.uint8)
+
+   return np.clip(np.rint((source - low) * (255.0 / (high - low))), 0, 255).astype(np.uint8)
+
+
+
+
+def laplacian_variants(image: np.ndarray) -> dict:
+   """Return absolute, stretched, additive-clipped, and raw signed Laplacian results."""
+
+   source = _float_gray(image)
+
+   response = laplacian_response(source)
+
+   return {
+
+       "response": response,
+
+       "absolute": np.clip(np.rint(np.abs(response)), 0, 255).astype(np.uint8),
+
+       "stretched": stretch_to_u8(response),
+
+       "overlay": np.clip(np.rint(source + response), 0, 255).astype(np.uint8),
+
+   }
+
+
+
+
+def edge_sharpen(image: np.ndarray, kind: str, amount: float = 0.15) -> np.ndarray:
+
+   """Create a conservative edge-mask overlay; signed Laplacian is preferred for detail."""
+
+   source = _float_gray(image)
+
+   if kind == "roberts":
+
+       response = roberts_response(source)
+
+   elif kind == "sobel":
+
+       response = sobel_response(source)
+
+   elif kind == "prewitt":
+
+       response = prewitt_response(source)
+
+   else:
+
+       raise ValueError("kind must be roberts, sobel, or prewitt")
+
+   # Centering the positive magnitude limits a global brightness lift while retaining edges.
+
+   detail = response - box_filter(response, 3)
+
+   return np.clip(source + amount * detail, 0.0, 255.0)
+
+附录 A 核心运行源码：dip_lab/noise.py
+"""Reproducible Gaussian, impulse, and mixed noise generation."""
+
+
+
+import numpy as np
+
+
+
+
+def _gray_u8(image: np.ndarray) -> np.ndarray:
+
+   array = np.asarray(image)
+
+   if array.ndim != 2 or not np.isfinite(array).all():
+
+       raise ValueError("Expected a finite two-dimensional grayscale image")
+
+   return np.clip(np.rint(array), 0, 255).astype(np.uint8)
+
+
+
+
+def add_gaussian_noise(image: np.ndarray, sigma: float = 18.0, seed: int = 20261008) -> np.ndarray:
+
+   """Add zero-mean Gaussian noise, clip to display range, and return uint8."""
+
+   source = _gray_u8(image)
+
+   if sigma < 0:
+
+       raise ValueError("sigma must be non-negative")
+
+   if sigma == 0:
+
+       return source.copy()
+   rng = np.random.default_rng(seed)
+
+   noisy = source.astype(np.float64) + rng.normal(0.0, sigma, size=source.shape)
+
+   return np.clip(np.rint(noisy), 0, 255).astype(np.uint8)
+
+
+
+
+def add_salt_pepper_noise(
+
+   image: np.ndarray,
+
+   density: float = 0.04,
+
+   seed: int = 20261008,
+
+) -> np.ndarray:
+
+   """Replace a reproducible fraction of pixels with 0 or 255."""
+
+   source = _gray_u8(image)
+
+   if not 0.0 <= density <= 1.0:
+
+       raise ValueError("density must be in [0, 1]")
+
+   if density == 0:
+
+       return source.copy()
+
+   rng = np.random.default_rng(seed)
+
+   draw = rng.random(source.shape)
+
+   result = source.copy()
+
+   result[draw < density / 2.0] = 0
+
+   result[(draw >= density / 2.0) & (draw < density)] = 255
+
+   return result
+
+
+
+
+def add_mixed_noise(
+
+   image: np.ndarray,
+
+   gaussian_sigma: float = 12.0,
+
+   salt_pepper_density: float = 0.02,
+
+   seed: int = 20261008,
+
+) -> np.ndarray:
+
+   """Add Gaussian and salt-pepper noise using one seeded RNG stream."""
+
+   source = _gray_u8(image)
+
+   if gaussian_sigma < 0 or not 0.0 <= salt_pepper_density <= 1.0:
+
+       raise ValueError("Noise parameters are outside their valid ranges")
+
+   if gaussian_sigma == 0 and salt_pepper_density == 0:
+
+       return source.copy()
+
+   rng = np.random.default_rng(seed)
+
+   noisy = source.astype(np.float64)
+
+   if gaussian_sigma > 0:
+
+       noisy += rng.normal(0.0, gaussian_sigma, size=source.shape)
+
+   result = np.clip(np.rint(noisy), 0, 255).astype(np.uint8)
+
+   if salt_pepper_density > 0:
+
+       draw = rng.random(source.shape)
+
+       result[draw < salt_pepper_density / 2.0] = 0
+
+       result[(draw >= salt_pepper_density / 2.0) & (draw < salt_pepper_density)] = 255
+   return result
+
+附录 A 核心运行源码：dip_lab/advanced.py
+"""Manual edge-preserving filters implemented with NumPy array operations."""
+
+
+
+import math
+
+
+
+import numpy as np
+
+
+
+from .spatial import box_filter
+
+
+
+
+def _gray(image: np.ndarray) -> np.ndarray:
+
+   array = np.asarray(image, dtype=np.float64)
+
+   if array.ndim != 2 or not np.isfinite(array).all():
+
+       raise ValueError("Expected a finite two-dimensional grayscale image")
+
+   return array
+
+
+
+
+def _odd_positive(value: int, label: str) -> int:
+
+   value = int(value)
+
+   if value < 1:
+
+       raise ValueError(label + " must be positive")
+
+   return value
+
+
+
+
+def _shift_reflect(image: np.ndarray, dy: int, dx: int) -> np.ndarray:
+
+   """Translate an image while reflecting values beyond its boundary."""
+
+   source = _gray(image)
+
+   height, width = source.shape
+
+   mode = "symmetric" if min(source.shape) == 1 else "reflect"
+
+   pad_y, pad_x = abs(dy), abs(dx)
+
+   padded = np.pad(source, ((pad_y, pad_y), (pad_x, pad_x)), mode=mode)
+
+   start_y = pad_y + dy
+
+   start_x = pad_x + dx
+
+   return padded[start_y : start_y + height, start_x : start_x + width]
+
+
+
+
+def bilateral_filter(
+
+   image: np.ndarray,
+
+   radius: int = 3,
+
+   sigma_space: float = 2.0,
+
+   sigma_range: float = 25.0,
+
+) -> np.ndarray:
+
+   """Apply bilateral weighting over a square neighborhood; no library filter calls."""
+
+   source = _gray(image)
+   radius = _odd_positive(radius, "radius")
+
+   if sigma_space <= 0 or sigma_range <= 0:
+
+       raise ValueError("sigma_space and sigma_range must be positive")
+
+   numerator = np.zeros_like(source)
+
+   denominator = np.zeros_like(source)
+
+   spatial_denominator = 2.0 * sigma_space**2
+
+   range_denominator = 2.0 * sigma_range**2
+
+   for dy in range(-radius, radius + 1):
+
+       for dx in range(-radius, radius + 1):
+
+          neighbor = _shift_reflect(source, dy, dx)
+
+          spatial_weight = math.exp(-(dy * dy + dx * dx) / spatial_denominator)
+
+          range_weight = np.exp(-((neighbor - source) ** 2) / range_denominator)
+
+          weight = spatial_weight * range_weight
+
+          numerator += weight * neighbor
+
+          denominator += weight
+
+   return numerator / np.maximum(denominator, np.finfo(np.float64).tiny)
+
+
+
+
+def guided_filter(
+
+   guide: np.ndarray,
+
+   source: np.ndarray,
+
+   radius: int = 4,
+
+   epsilon: float = 650.25,
+
+) -> np.ndarray:
+
+   """Grayscale guided filter using local linear coefficients and integral box means."""
+
+   guide_image = _gray(guide)
+
+   source_image = _gray(source)
+
+   if guide_image.shape != source_image.shape:
+
+       raise ValueError("guide and source must have equal shapes")
+
+   radius = _odd_positive(radius, "radius")
+
+   if epsilon <= 0:
+
+       raise ValueError("epsilon must be positive")
+
+   window = 2 * radius + 1
+
+   mean_i = box_filter(guide_image, window)
+
+   mean_p = box_filter(source_image, window)
+
+   mean_ip = box_filter(guide_image * source_image, window)
+
+   mean_ii = box_filter(guide_image * guide_image, window)
+
+   covariance = mean_ip - mean_i * mean_p
+
+   variance = np.maximum(mean_ii - mean_i * mean_i, 0.0)
+
+   a = covariance / (variance + epsilon)
+
+   b = mean_p - a * mean_i
+
+   mean_a = box_filter(a, window)
+
+   mean_b = box_filter(b, window)
+
+   return mean_a * guide_image + mean_b
+def non_local_means(
+
+   image: np.ndarray,
+
+   patch_radius: int = 2,
+
+   search_radius: int = 5,
+
+   h: float = 18.0,
+
+   noise_sigma: float = 0.0,
+
+) -> np.ndarray:
+
+   """Approximate NLM with vectorized shifted images and integral patch distances.
+
+
+
+   The search still examines every displacement in the specified square window.
+
+   Patch SSD is computed as a box mean, avoiding per-pixel Python loops.
+
+   """
+
+   source = _gray(image)
+
+   patch_radius = _odd_positive(patch_radius, "patch_radius")
+
+   search_radius = _odd_positive(search_radius, "search_radius")
+
+   if h <= 0 or noise_sigma < 0:
+
+         raise ValueError("h must be positive and noise_sigma non-negative")
+
+   patch_size = 2 * patch_radius + 1
+
+   numerator = np.zeros_like(source)
+
+   denominator = np.zeros_like(source)
+
+   noise_bias = 2.0 * noise_sigma**2
+
+   for dy in range(-search_radius, search_radius + 1):
+
+         for dx in range(-search_radius, search_radius + 1):
+
+            neighbor = _shift_reflect(source, dy, dx)
+
+            if dy == 0 and dx == 0:
+
+                weight = np.ones_like(source)
+
+            else:
+
+                distance = box_filter((source - neighbor) ** 2, patch_size)
+
+                corrected = np.maximum(distance - noise_bias, 0.0)
+
+                weight = np.exp(-corrected / (h * h))
+
+            numerator += weight * neighbor
+
+            denominator += weight
+
+   return numerator / np.maximum(denominator, np.finfo(np.float64).tiny)
+
+附录 A 核心运行源码：dip_lab/metrics.py
+"""Quality metrics for denoising with an explicitly available clean reference."""
+
+
+
+import numpy as np
+
+from skimage.metrics import peak_signal_noise_ratio, structural_similarity
+
+
+
+
+def psnr(reference: np.ndarray, estimate: np.ndarray) -> float:
+
+   """PSNR on the shared 0..255 grayscale scale."""
+
+   ref = np.asarray(reference, dtype=np.float64)
+
+   est = np.asarray(estimate, dtype=np.float64)
+   if ref.shape != est.shape or ref.ndim != 2:
+
+       raise ValueError("reference and estimate must be same-shaped grayscale images")
+
+   if np.array_equal(ref, est):
+
+       return float("inf")
+
+   return float(peak_signal_noise_ratio(ref, est, data_range=255.0))
+
+
+
+
+def ssim(reference: np.ndarray, estimate: np.ndarray) -> float:
+
+   """SSIM using scikit-image's validated metric implementation."""
+
+   ref = np.asarray(reference, dtype=np.float64)
+
+   est = np.asarray(estimate, dtype=np.float64)
+
+   if ref.shape != est.shape or ref.ndim != 2:
+
+       raise ValueError("reference and estimate must be same-shaped grayscale images")
+
+   if min(ref.shape) < 7:
+
+       raise ValueError("SSIM requires both dimensions to be at least 7 pixels")
+
+   return float(structural_similarity(ref, est, data_range=255.0, channel_axis=None))
+
+
+
+
+def compare(reference: np.ndarray, estimate: np.ndarray) -> dict:
+
+   return {"psnr_db": psnr(reference, estimate), "ssim": ssim(reference, estimate)}
+

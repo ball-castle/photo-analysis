@@ -1,0 +1,104 @@
+{
+  "python": "3.9.7 (tags/v3.9.7:1016ef3, Aug 30 2021, 20:19:38) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "numpy": "2.0.2",
+  "pillow": "11.2.1",
+  "matplotlib": "3.9.4",
+  "random_seed": 20261106,
+  "gaussian_sigma": 20.0,
+  "cutoff_bins": [
+    8.0,
+    16.0,
+    32.0,
+    64.0
+  ],
+  "butterworth_order": 2,
+  "binary_fft": {
+    "manual_dft_max_abs_error": 5.360823112835922e-12,
+    "inverse_reconstruction_max_abs_error": 4.440892098500626e-16
+  },
+  "gaussian_noisy_psnr_db": 22.44929644112006,
+  "gaussian_lowpass_rows": 12,
+  "highpass_rows": 12,
+  "notch_real_images": 4,
+  "notch_synthetic_psnr_rows": 40,
+  "real_periodic_images_psnr": "not computed: clean reference images were not supplied",
+  "synthetic_notch_psnr_reference": "each supplied image before the controlled modulated sinusoidal noise was added",
+  "hfe_parameters": {
+    "family": "butterworth",
+    "order": 2,
+    "D0_bins": 24.0,
+    "a": 0.6,
+    "b": 1.4
+  },
+  "actual_notch_parameters": {
+    "7.PNG": {
+      "centers": [
+        [
+          13,
+          22
+        ],
+        [
+          25,
+          -44
+        ]
+      ],
+      "d0": 3.0
+    },
+    "10.jpg": {
+      "centers": [
+        [
+          61,
+          -83
+        ],
+        [
+          62,
+          82
+        ],
+        [
+          2,
+          165
+        ],
+        [
+          123,
+          -1
+        ],
+        [
+          1,
+          125
+        ]
+      ],
+      "d0": 8.0
+    },
+    "11.jpg": {
+      "centers": [
+        [
+          25,
+          0
+        ],
+        [
+          51,
+          0
+        ],
+        [
+          75,
+          0
+        ]
+      ],
+      "d0": 5.0
+    },
+    "16.jpg": {
+      "centers": [
+        [
+          0,
+          16
+        ],
+        [
+          5,
+          5
+        ]
+      ],
+      "d0": 3.0
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "status": "SUBMISSION_PACKAGE_PASS",
+  "pdf": {
+    "filename": "第一次上机实验报告_数学jd2401_蔡斌_1024001338.pdf",
+    "bytes": 1250985,
+    "sha256": "48fa3d76f42bd6b1e480cd506ebf7a3ac221559e5d3eac3bc157a7c214469499",
+    "pages_with_text": 23,
+    "all_pages_have_text": true,
+    "required_text_present": true
+  },
+  "zip": {
+    "filename": "第一次上机源代码_数学jd2401_蔡斌_1024001338.zip",
+    "bytes": 16290811,
+    "sha256": "c86d0e28d4eb3a30ee5fc2c5bb004a8d34c32eb0192fe2fd866fa21ebf3e7c5d",
+    "entry_count": 70,
+    "crc_test": null,
+    "root_has_entry_script": true,
+    "required_entries_present": true,
+    "has_extra_top_level_directory": false,
+    "all_files_under_200MB": true
+  },
+  "extracted_run": {
+    "command": "python run_experiment.py --seed 20261008",
+    "exit_code": 0
+  },
+  "extracted_tests": {
+    "command": "python -W error -m pytest tests -q",
+    "passed": 16,
+    "failed": 0
+  }
+}

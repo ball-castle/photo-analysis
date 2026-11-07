@@ -1,0 +1,23 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<title>初版生成</title><style>
+* { box-sizing: border-box; }
+html, body { margin:0; background:white; }
+body { font-family:"Microsoft YaHei",sans-serif; color:#1f2730; }
+.card { width:1360px; border:1px solid #cbd4da; background:white; }
+.head { display:flex; justify-content:space-between; padding:14px 28px;
+        border-bottom:1px solid #d6dde4; background:#edf2f5; }
+.title { font-size:28px; font-weight:600; color:#213e50; }
+.meta { font-size:24px; color:#64717a; }
+.exchange { padding:17px 28px 16px; }
+.row { display:grid; grid-template-columns:78px 1fr; gap:18px; }
+.row + .row { margin-top:12px; padding-top:12px; border-top:1px solid #edf0f3; }
+.label { color:#38546b; font-size:26px; font-weight:600; padding-top:3px; }
+p { font-size:32px; line-height:1.45; margin:0; text-align:left; }
+code { font-family:Consolas,monospace; font-size:31px; }
+</style>
+<article class="card">
+<div class="head"><span class="title">01　初版生成</span>
+<span class="meta">Luna · 第 1 轮</span></div>
+<div class="exchange"><div class="row"><div class="label">提问</div><p>请直接编写 MATLAB 函数 motion_psf_ai(len,theta)，根据运动长度（像素）和直角坐标系逆时针角度（度），构造匀速直线运动的离散点扩散函数，目标是与 MATLAB fspecial(&#x27;motion&#x27;,LEN,THETA) 输出一致。</p></div>
+<div class="row"><div class="label">答复</div><p>代码把运动轨迹视为长度为 <code>len</code> 的连续线段，逐像素计算线段穿过该像素方格的长度，再将结果归一化。角度按直角坐标系逆时针解释，并在写入矩阵时映射到向下递增的图像行坐标。</p></div></div>
+</article></html>

@@ -1,0 +1,13 @@
+﻿filter,D0_bins,order,PSNR_dB,MSE,runtime_seconds,reference
+ideal,8.0,n/a,18.08867638464345,1009.7473507688351,0.004583000000000226,cameraman.tif before added Gaussian noise
+ideal,16.0,n/a,20.284178781237003,609.063372229729,0.004381700000000155,cameraman.tif before added Gaussian noise
+ideal,32.0,n/a,22.562577487295638,360.4313945159156,0.004729699999999948,cameraman.tif before added Gaussian noise
+ideal,64.0,n/a,24.80544870974501,215.04804061921243,0.004397900000000288,cameraman.tif before added Gaussian noise
+butterworth,8.0,2,18.815419742855667,854.1583417475779,0.004213299999999975,cameraman.tif before added Gaussian noise
+butterworth,16.0,2,20.982037997517473,518.6526021084192,0.004414899999999999,cameraman.tif before added Gaussian noise
+butterworth,32.0,2,23.49556530204613,290.75274972940935,0.004523700000000019,cameraman.tif before added Gaussian noise
+butterworth,64.0,2,26.162465052688727,157.33808341944376,0.005060199999999959,cameraman.tif before added Gaussian noise
+gaussian,8.0,n/a,19.260585660619405,770.9421573596493,0.005703900000000317,cameraman.tif before added Gaussian noise
+gaussian,16.0,n/a,21.443468015851778,466.3731714572924,0.004602999999999913,cameraman.tif before added Gaussian noise
+gaussian,32.0,n/a,24.11653484962887,252.01528145673225,0.004559400000000213,cameraman.tif before added Gaussian noise
+gaussian,64.0,n/a,26.454633029069253,147.10148533109418,0.0047682,cameraman.tif before added Gaussian noise
